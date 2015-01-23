@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * This object is a simple demonstration of JSON unmarshalled data.
- *
- * TODO: Delete this class. It is only intended for use in a demo.
+ * Example domain model object with a simple demonstration of JSON unmarshalled data.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TestFacebookPage {

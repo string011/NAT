@@ -15,6 +15,9 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
+/**
+ * Configuration object for the application's root context.
+ */
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration

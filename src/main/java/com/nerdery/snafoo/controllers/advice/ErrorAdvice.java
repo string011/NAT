@@ -9,7 +9,7 @@ import org.springframework.web.client.RestClientException;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- *
+ * Controller advice implementation, containing a simple exception handling strategy.
  */
 @ControllerAdvice
 public class ErrorAdvice implements Logging {

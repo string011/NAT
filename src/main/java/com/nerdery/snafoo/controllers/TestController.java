@@ -16,7 +16,8 @@ import org.springframework.web.client.RestClientException;
 import javax.inject.Inject;
 
 /**
- *
+ * Example MVC controller demonstrating injection and consumption of various services, request handler methods, and
+ * a forced exception for testing the exception handling logic.
  */
 @Controller
 public class TestController implements Logging {

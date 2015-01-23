@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- *
+ * An example Spring Converter which converts from a domain model (TestFacebookPage) to a view model
+ * (TestCompanyInfo).
  */
 @Component
 public class TestFacebookCompanyConverter implements Converter<TestFacebookPage, TestCompanyInfo> {

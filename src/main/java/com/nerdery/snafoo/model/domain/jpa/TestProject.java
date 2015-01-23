@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- *
+ * Example domain model object with a few persistence annotations.
  */
 @Entity
 public class TestProject implements Serializable {

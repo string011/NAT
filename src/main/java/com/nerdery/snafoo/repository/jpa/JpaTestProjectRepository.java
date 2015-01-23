@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 /**
- *
+ * Barebones repository for TestProject objects utilizing Spring's automatic CrudRepository implementation.
  */
 @Repository
 public interface JpaTestProjectRepository extends CrudRepository<TestProject, Long>, TestProjectRepository {

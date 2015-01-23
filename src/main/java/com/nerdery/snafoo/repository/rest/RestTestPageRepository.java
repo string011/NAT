@@ -2,13 +2,14 @@ package com.nerdery.snafoo.repository.rest;
 
 import com.nerdery.snafoo.model.domain.rest.TestFacebookPage;
 import com.nerdery.snafoo.repository.TestPageRepository;
-import javax.inject.Inject;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.client.RestTemplate;
 
+import javax.inject.Inject;
+
 /**
- *
+ * Repository implementation using Spring's RestTemplate to query a REST endpoint for model data.
  */
 @Repository
 public class RestTestPageRepository implements TestPageRepository {

@@ -3,7 +3,7 @@ package com.nerdery.snafoo.model.view;
 import java.util.List;
 
 /**
- *
+ * Example view model object.
  */
 public class TestCompanyInfo {
 
