@@ -24,8 +24,7 @@ import java.util.List;
 public class SnackFoodApplication {
 
     @Bean(name = "customConversionService")
-    public ConversionService conversionService(List<Converter> converters)
-    {
+    public ConversionService conversionService(List<Converter> converters) {
         DefaultConversionService conversionService = new DefaultConversionService();
         converters.forEach(conversionService::addConverter);
         return conversionService;
