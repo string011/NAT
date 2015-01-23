@@ -2,7 +2,7 @@ package com.nerdery.snafoo.services;
 
 import com.nerdery.snafoo.model.domain.rest.TestFacebookPage;
 import com.nerdery.snafoo.repository.TestPageRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,7 +17,7 @@ public class TestPageService {
         return testPageRepository.getTestPage();
     }
 
-    @Autowired
+    @Inject
     public void setTestPageRepository(TestPageRepository testPageRepository) {
         this.testPageRepository = testPageRepository;
     }

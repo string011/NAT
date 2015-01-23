@@ -2,7 +2,7 @@ package com.nerdery.snafoo.services;
 
 import com.nerdery.snafoo.model.domain.jpa.TestProject;
 import com.nerdery.snafoo.repository.TestProjectRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,7 +17,7 @@ public class TestProjectService {
         return testProjectRepository.findAll();
     }
 
-    @Autowired
+    @Inject
     public void setTestProjectRepository(TestProjectRepository testProjectRepository) {
         this.testProjectRepository = testProjectRepository;
     }
