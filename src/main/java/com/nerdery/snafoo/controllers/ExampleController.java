@@ -1,11 +1,11 @@
 package com.nerdery.snafoo.controllers;
 
 import com.nerdery.snafoo.common.Logging;
-import com.nerdery.snafoo.model.domain.jpa.TestProject;
-import com.nerdery.snafoo.model.domain.rest.TestFacebookPage;
-import com.nerdery.snafoo.model.view.TestCompanyInfo;
-import com.nerdery.snafoo.services.TestPageService;
-import com.nerdery.snafoo.services.TestProjectService;
+import com.nerdery.snafoo.model.domain.jpa.ExampleProjectModel;
+import com.nerdery.snafoo.model.domain.rest.ExamplePageModel;
+import com.nerdery.snafoo.model.view.ExampleCompanyModel;
+import com.nerdery.snafoo.services.ExamplePageService;
+import com.nerdery.snafoo.services.ExampleProjectService;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Controller;
@@ -17,14 +17,15 @@ import javax.inject.Inject;
 
 /**
  * Example MVC controller demonstrating injection and consumption of various services, request handler methods, and
- * a forced exception for testing the exception handling logic.
+ * a forced exception for testing the exception handling logic. It can be safely deleted once you have implemented your
+ * own controller(s).
  */
 @Controller
-public class TestController implements Logging {
+public class ExampleController implements Logging {
 
     private ConversionService converterService;
-    private TestPageService testPageService;
-    private TestProjectService testProjectService;
+    private ExamplePageService examplePageService;
+    private ExampleProjectService exampleProjectService;
 
     @RequestMapping("/errorTest")
     public void renderErrorPage() {
@@ -33,9 +34,9 @@ public class TestController implements Logging {
 
     @RequestMapping("/")
     public String renderTestPage(Model model) {
-        TestFacebookPage domainPage = testPageService.fetchTestPage();
-        TestCompanyInfo nerderyInfo = converterService.convert(domainPage, TestCompanyInfo.class);
-        Iterable<TestProject> testProjects = testProjectService.fetchTestProjects();
+        ExamplePageModel domainPage = examplePageService.fetchTestPage();
+        ExampleCompanyModel nerderyInfo = converterService.convert(domainPage, ExampleCompanyModel.class);
+        Iterable<ExampleProjectModel> testProjects = exampleProjectService.fetchTestProjects();
 
         model.addAttribute("nerderyInfo", nerderyInfo);
         model.addAttribute("projects", testProjects);
@@ -50,12 +51,12 @@ public class TestController implements Logging {
     }
 
     @Inject
-    public void setTestProjectService(TestProjectService testProjectService) {
-        this.testProjectService = testProjectService;
+    public void setExampleProjectService(ExampleProjectService exampleProjectService) {
+        this.exampleProjectService = exampleProjectService;
     }
 
     @Inject
-    public void setTestPageService(TestPageService testPageService) {
-        this.testPageService = testPageService;
+    public void setExamplePageService(ExamplePageService examplePageService) {
+        this.examplePageService = examplePageService;
     }
 }

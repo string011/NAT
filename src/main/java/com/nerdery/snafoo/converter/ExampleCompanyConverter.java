@@ -1,7 +1,7 @@
 package com.nerdery.snafoo.converter;
 
-import com.nerdery.snafoo.model.domain.rest.TestFacebookPage;
-import com.nerdery.snafoo.model.view.TestCompanyInfo;
+import com.nerdery.snafoo.model.domain.rest.ExamplePageModel;
+import com.nerdery.snafoo.model.view.ExampleCompanyModel;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -11,18 +11,18 @@ import java.util.stream.Collectors;
 
 /**
  * An example Spring Converter which converts from a domain model (TestFacebookPage) to a view model
- * (TestCompanyInfo).
+ * (TestCompanyInfo). It can be safely deleted once you have implemented your own converter(s).
  */
 @Component
-public class TestFacebookCompanyConverter implements Converter<TestFacebookPage, TestCompanyInfo> {
+public class ExampleCompanyConverter implements Converter<ExamplePageModel, ExampleCompanyModel> {
 
     @Override
-    public TestCompanyInfo convert(TestFacebookPage source) {
+    public ExampleCompanyModel convert(ExamplePageModel source) {
         String combinedDescription = source.getDescription() + " " + source.getCompanyOverview();
         List<String> urls = Arrays.asList(source.getWebsite().split("\\s+"))
                 .stream()
                 .map(url -> "http://" + url)
                 .collect(Collectors.toList());
-        return new TestCompanyInfo(source.getName(), urls, combinedDescription);
+        return new ExampleCompanyModel(source.getName(), urls, combinedDescription);
     }
 }

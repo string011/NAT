@@ -3,15 +3,15 @@ package com.nerdery.snafoo.model.view;
 import java.util.List;
 
 /**
- * Example view model object.
+ * Example view model object. It can be safely deleted once you have implemented your own model class(es).
  */
-public class TestCompanyInfo {
+public class ExampleCompanyModel {
 
     private String name;
     private List<String> urls;
     private String description;
 
-    public TestCompanyInfo(String name, List<String> urls, String description) {
+    public ExampleCompanyModel(String name, List<String> urls, String description) {
         this.name = name;
         this.urls = urls;
         this.description = description;

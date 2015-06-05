@@ -7,10 +7,11 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Example domain model object with a few persistence annotations.
+ * Example domain model object with a few persistence annotations. It can be safely deleted once you have implemented your
+ * own model class(es).
  */
 @Entity
-public class TestProject implements Serializable {
+public class ExampleProjectModel implements Serializable {
 
     @Id
     @GeneratedValue
@@ -25,10 +26,10 @@ public class TestProject implements Serializable {
     @Column(nullable = false)
     private int developers;
 
-    public TestProject() {
+    public ExampleProjectModel() {
     }
 
-    public TestProject(String name, int hours, int developers) {
+    public ExampleProjectModel(String name, int hours, int developers) {
         this.name = name;
         this.hours = hours;
         this.developers = developers;
