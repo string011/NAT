@@ -6,6 +6,7 @@ This project contains example code which can be used as the basis for the JVM Ne
 
 ##Base Project Architecture
 * **Language**: Java 8
+* **Build System**: Gradle
 * **Web Framework**: Spring Boot
 * **Data Persistence**: Spring Data JPA (H2 for development, MySQL for Production)
 * **JSON**: Jackson
