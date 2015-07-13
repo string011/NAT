@@ -4,6 +4,9 @@ import com.nerdery.snafoo.model.domain.jpa.ExampleProjectModel;
 import com.nerdery.snafoo.repository.ExampleProjectRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.context.embedded.MimeMappings;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -21,8 +24,15 @@ import java.util.List;
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
-public class SnackFoodApplication {
+public class SnackFoodApplication implements EmbeddedServletContainerCustomizer {
 
+    /**
+     * Register any Spring-managed converters with a default conversion service, which will be made available for injection into other
+     * classes.
+     *
+     * @param converters A List of all known Converter objects
+     * @return A conversion service with the given converters registered
+     */
     @Bean(name = "customConversionService")
     public ConversionService conversionService(List<Converter> converters) {
         DefaultConversionService conversionService = new DefaultConversionService();
@@ -30,6 +40,18 @@ public class SnackFoodApplication {
         return conversionService;
     }
 
+    /**
+     * Add support for serving JSON data with the proper MIME type to the servlet container. This is used for fixture demo data and can be
+     * safely removed if you won't be using any JSON fixture data in your NAT submission.
+     *
+     * @param container The embedded Spring Boot Servlet container
+     */
+    @Override
+    public void customize(ConfigurableEmbeddedServletContainer container) {
+        MimeMappings mappings = new MimeMappings(MimeMappings.DEFAULT);
+        mappings.add("json","application/json");
+        container.setMimeMappings(mappings);
+    }
 
     /**
      * See the database with example data. This method can be re-purposed or deleted when you create your snack food implementation.
