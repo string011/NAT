@@ -1,7 +1,7 @@
 package com.nerdery.snafoo;
 
-import com.nerdery.snafoo.model.domain.jpa.ExampleProjectModel;
-import com.nerdery.snafoo.repository.ExampleProjectRepository;
+import java.util.List;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
@@ -16,7 +16,11 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.util.Assert;
 
-import java.util.List;
+import com.nerdery.snafoo.common.Logging;
+import com.nerdery.snafoo.model.domain.jpa.ExampleProjectModel;
+import com.nerdery.snafoo.model.domain.jpa.ExampleProjectModel2;
+import com.nerdery.snafoo.repository.ExampleProjectRepository;
+import com.nerdery.snafoo.repository.ExampleProjectRepository2;
 
 /**
  * Configuration object for the application's root context.
@@ -24,7 +28,7 @@ import java.util.List;
 @Configuration
 @ComponentScan
 @EnableAutoConfiguration
-public class SnackFoodApplication implements EmbeddedServletContainerCustomizer {
+public class SnackFoodApplication implements EmbeddedServletContainerCustomizer, Logging {
 
     /**
      * Register any Spring-managed converters with a default conversion service, which will be made available for injection into other
@@ -59,11 +63,22 @@ public class SnackFoodApplication implements EmbeddedServletContainerCustomizer 
      * @param context The main application context, which will be used to fetch configured beans.
      */
     private static void seedDatabase(ConfigurableApplicationContext context) {
+        ExampleProjectRepository2 repository2 = (ExampleProjectRepository2) context.getBeanFactory().getBean("exampleJpaProjectRepository2");
+        Assert.notNull(repository2, "Failed to seed test database, due to missing repository2 object.");
         ExampleProjectRepository repository = (ExampleProjectRepository) context.getBeanFactory().getBean("exampleJpaProjectRepository");
         Assert.notNull(repository, "Failed to seed test database, due to missing repository object.");
         for (int i = 1; i < 4; i++) {
             repository.save(new ExampleProjectModel("Example Project #" + i, i * 100, i * 2));
         }
+        Iterable<ExampleProjectModel>models = repository.findAll();
+        for (ExampleProjectModel exampleProjectModel : models) {
+        	List<ExampleProjectModel2> m2s = exampleProjectModel.getModels();
+        	for (ExampleProjectModel2 m2 : m2s){
+        		System.out.println(m2.getName());
+        	}
+			
+		}
+        models.toString();
     }
 
     public static void main(String[] args) {
