@@ -17,10 +17,11 @@ import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.util.Assert;
 
 import com.nerdery.snafoo.common.Logging;
-import com.nerdery.snafoo.model.domain.jpa.ExampleProjectModel;
 import com.nerdery.snafoo.model.domain.jpa.ExampleProjectModel2;
-import com.nerdery.snafoo.repository.ExampleProjectRepository;
-import com.nerdery.snafoo.repository.ExampleProjectRepository2;
+import com.nerdery.snafoo.model.domain.jpa.Snack;
+import com.nerdery.snafoo.model.domain.jpa.SnackShop;
+import com.nerdery.snafoo.repository.SnackRepository;
+import com.nerdery.snafoo.repository.SnackShopRepository;
 
 /**
  * Configuration object for the application's root context.
@@ -56,12 +57,33 @@ public class SnackFoodApplication implements EmbeddedServletContainerCustomizer,
         mappings.add("json","application/json");
         container.setMimeMappings(mappings);
     }
-
     /**
      * See the database with example data. This method can be re-purposed or deleted when you create your snack food implementation.
      *
      * @param context The main application context, which will be used to fetch configured beans.
      */
+    private static void seedDatabase(ConfigurableApplicationContext context) {
+        SnackShopRepository snackShopRepository = (SnackShopRepository) context.getBeanFactory().getBean("snackShopJpaRepository");
+        Assert.notNull(snackShopRepository, "Failed to seed test database, due to missing snackShop object.");
+        SnackRepository  snackRepository = (SnackRepository) context.getBeanFactory().getBean("snackJpaRepository");
+        Assert.notNull(snackRepository, "Failed to seed test database, due to missing repository object.");
+        for (int i = 1; i < 4; i++) {
+            snackShopRepository.save(new SnackShop("SnackShop " + i, i * 100, i * 2));
+        }
+        Iterable<SnackShop>snackShops = snackShopRepository.findAll();
+        for (SnackShop snackShop : snackShops) {
+        	List<Snack> snacks = snackShop.getSnacks();
+        	for (Snack snack : snacks){
+        		System.out.println(snack.getName());
+        	}
+		}
+        snackShops.toString();
+    }
+
+    /**
+     * See the database with example data. This method can be re-purposed or deleted when you create your snack food implementation.
+     *
+     * @param context The main application context, which will be used to fetch configured beans.
     private static void seedDatabase(ConfigurableApplicationContext context) {
         ExampleProjectRepository2 repository2 = (ExampleProjectRepository2) context.getBeanFactory().getBean("exampleJpaProjectRepository2");
         Assert.notNull(repository2, "Failed to seed test database, due to missing repository2 object.");
@@ -80,6 +102,7 @@ public class SnackFoodApplication implements EmbeddedServletContainerCustomizer,
 		}
         models.toString();
     }
+     */
 
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(SnackFoodApplication.class, args);
