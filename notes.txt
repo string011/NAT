@@ -1,0 +1,9 @@
+
+From a new Ubuntu machine. 
+Steps:
+installed JDK8
+installed Eclipse
+installed Gradle
+fixed .bashrc $PATH to find gradle
+ran gradle to create an Eclipse project
+imported NAT project into Eclipse
