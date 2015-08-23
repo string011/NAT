@@ -19,4 +19,12 @@ public class SnackShopModel {
 	public void add(SnackModel sm) {
 		snacks.add(sm);
 	}
+
+	public List<SnackModel> getSnacks() {
+		return snacks;
+	}
+
+	public void setSnacks(List<SnackModel> snacks) {
+		this.snacks = snacks;
+	}
 }

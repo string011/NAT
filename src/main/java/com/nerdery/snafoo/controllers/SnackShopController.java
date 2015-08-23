@@ -40,7 +40,6 @@ public class SnackShopController {
         // Iterable<ExampleProjectModel> testProjects = exampleProjectService.fetchTestProjects();
 
         model.addAttribute("snackShopInfo", snackShopInfo);
-        // model.addAttribute("projects", testProjects);
         return "voting";
     }
 

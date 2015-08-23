@@ -28,7 +28,6 @@
     <meta name="msapplication-TileImage" content="assets/media/images/favicon/mstile-144x144.png">
     <meta name="msapplication-TileColor" content="#ff0000">
     <!-- STYLESHEETS -->
-    <!-- <link rel="stylesheet" media="screen, projection" href="assets/styles/modern.css" />-->
    <link href="[@spring.url '/assets/styles/modern.css'/]" rel="stylesheet" type="text/css" media="screen"/>
     
 </head>

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 /**
  * View model object for rendering model data to the view.
  */
-@JsonIgnoreProperties(ignoreUnknown = true)
 public class SnackModel {
 
     private Integer id;

@@ -1,47 +1,49 @@
-[#ftl]
-[#import "spring.ftl" as spring/]
-[#assign xhtmlCompliant = true in spring/]
-[#import "include/snackShopPageTemplate.ftl" as page]
-[#escape x as x?html]
-    [@page.pageTemplate "Snack Shop Page"]
-    <div>
-    <h1>
-    Welcome to the snack shop.
-    </h1>
-    <div class="wrapper">
-        <div class="content" role="main">
-            <div class="shelf shelf_5">
-                <h1 class="hdg hdg_1">Voting</h1>
-            </div>
-            <div class="shelf shelf_2">
-                <p>You are able to vote for up to three selections each month.</p>
-            </div>
-            <div class="shelf shelf_2">
-                <div class="voteBox">
-                    <div class="voteBox-hd">
-                        <h2 class="hdg hdg_3">Votes Remaining</h2>
-                    </div>
-                    <div class="voteBox-body">
-                        <p class="counter counter_green isHidden">3</p>
-                        <p class="counter counter_yellow">2</p>
-                        <p class="counter counter_red isHidden">1</p>
-                    </div>
-                </div>
-            </div>
-            <div class="shelf shelf_2">
-                <p class="error isHidden">Opps! You have already voted the total allowed times this month.<br />Come back next month to vote again!</p>
-            </div>
-            <div class="split">
-                <div class="shelf shelf_2">
-                    <div class="shelf">
-                        <h2 class="hdg hdg_2 mix-hdg_centered ">Snacks Always Purchased</h2>
-                    </div>
-                    <ul class="list list_centered">
-                        <li>Pop Tarts</li>
-                        <li>Bagels</li>
-                        <li>Ramen Noodles</li>
-                        <li>Cereal</li>
-                        <li>Trail Mix</li>
+	[#ftl]
+	[#import "spring.ftl" as spring/]
+	[#assign xhtmlCompliant = true in spring/]
+	[#import "include/snackShopPageTemplate.ftl" as page]
+	[#escape x as x?html]
+	    [@page.pageTemplate "Snack Shop Page"]
+	    <div>
+	    <h1>
+	    Welcome to the snack shop.
+	    </h1>
+	    <div class="wrapper">
+	        <div class="content" role="main">
+	            <div class="shelf shelf_5">
+	                <h1 class="hdg hdg_1">Voting</h1>
+	            </div>
+	            <div class="shelf shelf_2">
+	                <p>You are able to vote for up to three selections each month.</p>
+	            </div>
+	            <div class="shelf shelf_2">
+	                <div class="voteBox">
+	                    <div class="voteBox-hd">
+	                        <h2 class="hdg hdg_3">Votes Remaining</h2>
+	                    </div>
+	                    <div class="voteBox-body">
+	                        <p class="counter counter_green isHidden">3</p>
+	                        <p class="counter counter_yellow">2</p>
+	                        <p class="counter counter_red isHidden">1</p>
+	                    </div>
+	                </div>
+	            </div>
+	            <div class="shelf shelf_2">
+	                <p class="error isHidden">Opps! You have already voted the total allowed times this month.<br />Come back next month to vote again!</p>
+	            </div>
+	            <div class="split">
+	                <div class="shelf shelf_2">
+	                    <div class="shelf">
+	                        <h2 class="hdg hdg_2 mix-hdg_centered ">Snacks Always Purchased</h2>
+	                    </div>
+	                    <ul class="list list_centered">
+				        <ul>
+				            [#list snackShopInfo.snacks as snack ]
+			                <li>
+			                <p> ${snack.name} </p>
+			                </li>
+				            [/#list]
+				        </ul>
                     </ul>
                 </div>
             </div>

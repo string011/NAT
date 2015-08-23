@@ -22,6 +22,7 @@ public class SnackShopConverter implements Converter<List<SnackPageModel>, Snack
     	for (SnackPageModel snack : source){
     		SnackModel sm = new SnackModel();
     		sm.setId(snack.getId());
+    		sm.setName(snack.getName());
     		ssm.add(sm);
     		
     	}
