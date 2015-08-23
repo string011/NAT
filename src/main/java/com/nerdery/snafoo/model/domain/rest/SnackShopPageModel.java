@@ -1,7 +1,8 @@
 package com.nerdery.snafoo.model.domain.rest;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Domain model object to handle JSON unmarshalled data. 
@@ -9,41 +10,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SnackShopPageModel {
 
-    private String name;
-    private String companyOverview;
-    private String description;
-    private String website;
+	List<SnackPageModel> snacks;
 
-    public String getName() {
-        return name;
-    }
+	public List<SnackPageModel> getSnacks() {
+		return snacks;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setSnacks(List<SnackPageModel> snacks) {
+		this.snacks = snacks;
+	}
 
-    @JsonProperty("company_overview")
-    public String getCompanyOverview() {
-        return companyOverview;
-    }
-
-    public void setCompanyOverview(String companyOverview) {
-        this.companyOverview = companyOverview;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
-    }
 }

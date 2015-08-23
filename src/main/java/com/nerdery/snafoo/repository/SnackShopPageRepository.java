@@ -1,10 +1,12 @@
 package com.nerdery.snafoo.repository;
 
-import com.nerdery.snafoo.model.domain.rest.SnackShopPageModel;
+import java.util.List;
+
+import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
 
 /**
  * Base interface for respositories providing access SnackShop models. 
  */
 public interface SnackShopPageRepository {
-    SnackShopPageModel getSnackShopHomePage();
+    List<SnackPageModel> getSnackShopHomePage();
 }

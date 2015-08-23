@@ -1,10 +1,12 @@
 package com.nerdery.snafoo.services;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.nerdery.snafoo.model.domain.rest.SnackShopPageModel;
+import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
 import com.nerdery.snafoo.repository.SnackShopPageRepository;
 
 /**
@@ -15,7 +17,7 @@ public class SnackShopPageService {
 
     private SnackShopPageRepository snackShopPageRepository;
 
-    public SnackShopPageModel fetchSnackShopHomePage() {
+    public List<SnackPageModel> fetchSnackShopHomePage() {
         return snackShopPageRepository.getSnackShopHomePage();
     }
 
