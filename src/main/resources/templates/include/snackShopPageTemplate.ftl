@@ -31,8 +31,8 @@
    <link href="[@spring.url '/assets/styles/modern.css'/]" rel="stylesheet" type="text/css" media="screen"/>
     
     <script>
-    function snackVote(Object snack) {
-       alert("snack voted.");
+    function snackVote(snack) {
+       alert("snack voted: " + snack);
        //form validation that recalls the page showing with supplied inputs.    
     }
     </script>

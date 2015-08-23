@@ -70,7 +70,7 @@
 		                                [#if snack.voteCount != 0]
 		                                    <button class="btn btn_clear"><i class="icon-check icon-check_voted"></i>
 	                                    [#else]
-	                                        <button class="btn btn_clear"><i class="icon-check icon-check_noVote"></i>
+	                                        <button id="${snack.name}" class="btn btn_clear" onclick="snackVote(id)"><i class="icon-check icon-check_noVote"></i>
                                         [/#if]
 		                                </td>
 	                                    <td>${snack.lastPurchaseDate}</td>
