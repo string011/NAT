@@ -19,7 +19,6 @@ import javax.persistence.OneToMany;
  * safely deleted once you have implemented your own model class(es).
  */
 @Entity
-
 public class SnackShop implements Serializable {
 
 	private static final long serialVersionUID = -5987956919233977335L;
@@ -30,6 +29,9 @@ public class SnackShop implements Serializable {
 
 	@Column(nullable = false)
 	private String name;
+	
+	@Column(nullable = false)
+	private String location = "MN";
 
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinTable(name = "snack_shop_snack", joinColumns = { @JoinColumn(name = "shop_id") }, inverseJoinColumns = {

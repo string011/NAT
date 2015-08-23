@@ -28,14 +28,6 @@ public class Snack implements Serializable {
 	@Column(nullable = false)
 	private int numberOfVotes = 0;
 
-	public int getNumberOfVotes() {
-		return numberOfVotes;
-	}
-
-	public void setNumberOfVotes(int numberOfVotes) {
-		this.numberOfVotes = numberOfVotes;
-	}
-
 	public boolean isAlwaysPurchased() {
 		return alwaysPurchased;
 	}
@@ -66,5 +58,13 @@ public class Snack implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public int getNumberOfVotes() {
+		return numberOfVotes;
+	}
+
+	public void setNumberOfVotes(int numberOfVotes) {
+		this.numberOfVotes = numberOfVotes;
 	}
 }

@@ -1,10 +1,11 @@
 package com.nerdery.snafoo.services;
 
-import com.nerdery.snafoo.model.domain.rest.ExamplePageModel;
-import com.nerdery.snafoo.repository.ExamplePageRepository;
+import javax.inject.Inject;
+
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
+import com.nerdery.snafoo.model.domain.rest.ExamplePageModel;
+import com.nerdery.snafoo.repository.ExamplePageRepository;
 
 /**
  * Example service providing access to a TestPageRepository. It can be safely deleted once you have implemented your own service(s).
