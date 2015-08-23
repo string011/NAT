@@ -3,17 +3,10 @@
 [#assign xhtmlCompliant = true in spring/]
 [#import "include/pageTemplate.ftl" as page]
 [#escape x as x?html]
-    [@page.pageTemplate "Test Page"]
-    <h1>${nerderyInfo.name}</h1>
-    <p>${nerderyInfo.description}</p>
-    <div>Websites:
-        <ul>
-            [#list nerderyInfo.urls as url]
-                <li>
-                    <a href="${url}">${url}</a>
-                </li>
-            [/#list]
-        </ul>
-    </div>
+    [@page.pageTemplate "Snack Shop Page"]
+    <div>
+    <h1>
+    Welcome to the snack shop.
+    </h1>
     [/@page.pageTemplate]
 [/#escape]
