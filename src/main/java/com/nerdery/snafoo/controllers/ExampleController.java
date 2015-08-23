@@ -32,7 +32,7 @@ public class ExampleController implements Logging {
         throw new RestClientException("This is a fake RestClientException.");
     }
 
-    @RequestMapping("/")
+    @RequestMapping("/test")
     public String renderTestPage(Model model) {
         ExamplePageModel domainPage = examplePageService.fetchTestPage();
         ExampleCompanyModel nerderyInfo = converterService.convert(domainPage, ExampleCompanyModel.class);

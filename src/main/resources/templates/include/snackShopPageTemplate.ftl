@@ -33,6 +33,24 @@
     
 </head>
 <body class="no-js">
+
+    <div class="masthead" role="banner">
+        <div class="masthead-hd">
+            <h1 class="hdg hdg_1 mix-hdg_extraBold"><a href="index.html">SnaFoo</a>
+            </h1>
+            <p class="masthead-hd-sub">Nerdery Snack Food Ordering System</p>
+        </div>
+        <div class="masthead-nav" role="navigation">
+            <ul>
+                <li><a href="/">Voting</a>
+                </li>
+                <li><a href="/suggestions">Suggestions</a>
+                </li>
+                <li><a href="/shoppinglist">Shopping List</a>
+                </li>
+            </ul>
+        </div>
+    </div>
     [#nested]
 </body>
 </html>

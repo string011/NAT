@@ -5,15 +5,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * Top level entry point for the snack shop.
+ * Controller for the "shoppingList" page.
  * @author string
  *
  */
 @Controller
-public class SnackShopController {
+public class ShoppingListController {
 
-    @RequestMapping("/")
+    @RequestMapping("/shoppinglist")
     public String renderPage(Model model) {
-        return "voting";
+        return "shoppingList";
     }
 }

@@ -8,25 +8,6 @@
     <h1>
     Welcome to the snack shop.
     </h1>
-    <div class="masthead" role="banner">
-        <div class="masthead-hd">
-            <h1 class="hdg hdg_1 mix-hdg_extraBold"><a href="index.html">SnaFoo</a>
-            </h1>
-            <p class="masthead-hd-sub">Nerdery Snack Food Ordering System</p>
-        </div>
-        <div class="masthead-nav" role="navigation">
-            <ul>
-                <li><a href="index.html">Voting</a>
-                </li>
-                <li><a href="suggestions.html">Suggestions</a>
-                </li>
-                <li><a href="shoppinglist.html">Shopping List</a>
-                </li>
-                <li><a href="helloWorld.html">Shopping List</a>
-                </li>
-            </ul>
-        </div>
-    </div>
     <div class="wrapper">
         <div class="content" role="main">
             <div class="shelf shelf_5">
