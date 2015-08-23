@@ -24,6 +24,17 @@ public class Snack implements Serializable {
 
 	@Column(nullable = false)
 	private boolean alwaysPurchased = false;
+	
+	@Column(nullable = false)
+	private int numberOfVotes = 0;
+
+	public int getNumberOfVotes() {
+		return numberOfVotes;
+	}
+
+	public void setNumberOfVotes(int numberOfVotes) {
+		this.numberOfVotes = numberOfVotes;
+	}
 
 	public boolean isAlwaysPurchased() {
 		return alwaysPurchased;
