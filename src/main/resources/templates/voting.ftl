@@ -5,9 +5,6 @@
 	[#escape x as x?html]
 	    [@page.pageTemplate "Snack Shop Page"]
 	    <div>
-	    <h1>
-	    Welcome to the snack shop.
-	    </h1>
 	    <div class="wrapper">
 	        <div class="content" role="main">
 	            <div class="shelf shelf_5">
@@ -75,7 +72,6 @@
 	                                    [#else]
 	                                        <button class="btn btn_clear"><i class="icon-check icon-check_noVote"></i>
                                         [/#if]
-		                                    </button>
 		                                </td>
 	                                    <td>${snack.lastPurchaseDate}</td>
 		                            </tr>
