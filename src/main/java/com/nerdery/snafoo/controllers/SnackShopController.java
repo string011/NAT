@@ -37,8 +37,6 @@ public class SnackShopController {
     public String renderPage(Model model) {
         List<SnackPageModel> domainPage = snackShopPageService.fetchSnackShopHomePage();
         SnackShopModel snackShopInfo = converterService.convert(domainPage, SnackShopModel.class);
-        // Iterable<ExampleProjectModel> testProjects = exampleProjectService.fetchTestProjects();
-
         model.addAttribute("snackShopInfo", snackShopInfo);
         return "voting";
     }

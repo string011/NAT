@@ -10,29 +10,37 @@ import com.nerdery.snafoo.model.view.SnackModel;
 import com.nerdery.snafoo.model.view.SnackShopModel;
 
 /**
- * An example Spring Converter which converts from a domain model (TestFacebookPage) to a view model
- * (TestCompanyInfo). It can be safely deleted once you have implemented your own converter(s).
+ * An example Spring Converter which converts from a domain model
+ * (TestFacebookPage) to a view model (TestCompanyInfo). It can be safely
+ * deleted once you have implemented your own converter(s).
  */
 @Component
 public class SnackShopConverter implements Converter<List<SnackPageModel>, SnackShopModel> {
 
-    @Override
-    public SnackShopModel convert(List<SnackPageModel> source) {
-	    SnackShopModel ssm = new SnackShopModel();
-    	for (SnackPageModel snack : source){
-    		SnackModel sm = new SnackModel();
-    		sm.setId(snack.getId());
-    		sm.setName(snack.getName());
-    		ssm.add(sm);
-    		
-    	}
-    	/*
-        String combinedDescription = source.getDescription() + " " + source.getCompanyOverview();
-        List<String> urls = Arrays.asList(source.getWebsite().split("\\s+"))
-                .stream()
-                .map(url -> "http://" + url)
-                .collect(Collectors.toList());
-                */
-        return ssm;
-    }
+	@Override
+	public SnackShopModel convert(List<SnackPageModel> source) {
+		SnackShopModel ssm = new SnackShopModel();
+		for (SnackPageModel snack : source) {
+			SnackModel sm = new SnackModel();
+			sm.setId(snack.getId());
+			sm.setName(snack.getName());
+			sm.setOptional(snack.getOptional());
+			sm.setPurchaseLocations(snack.getPurchaseLocations());
+			if (snack.getPurchaseCount() != null && snack.getPurchaseCount() != 0) {
+				sm.setPurchaseCount(snack.getPurchaseCount());
+				if (snack.getLastPurchaseDate() != null) {
+					sm.setLastPurchaseDate(snack.getLastPurchaseDate());
+				}
+			}
+			ssm.add(sm);
+
+		}
+		/*
+		 * String combinedDescription = source.getDescription() + " " +
+		 * source.getCompanyOverview(); List<String> urls =
+		 * Arrays.asList(source.getWebsite().split("\\s+")) .stream() .map(url
+		 * -> "http://" + url) .collect(Collectors.toList());
+		 */
+		return ssm;
+	}
 }

@@ -66,19 +66,21 @@
                             </thead>
                             <tbody>
 				            [#list snackShopInfo.snacks as snack ]
+				                [#if snack.optional]
 		                            <tr>
 		                                <td>${snack.name}</td>
-		                                <td>${snack.voteCount}</td>
+		                                <td>${snack.purchaseCount}</td>
 		                                <td>
-		                                [#if snack.voteCount != 0]
 		                                    <button class="btn btn_clear"><i class="icon-check icon-check_voted"></i>
-	                                    [#else]
-	                                        <button class="btn btn_clear"><i class="icon-check icon-check_noVote"></i>
-                                        [/#if]
 		                                    </button>
 		                                </td>
-	                                    <td>${snack.lastPurchaseDate}</td>
+		                                [#if snack.lastPurchaseDate == null]
+		                                    <td>Never</td>
+		                                [#else]
+		                                    <td>${snack.lastPurchaseDate}</td>
+		                                [#/if]
 		                            </tr>
+                                [/#if]
 			                [/#list]
                             </tbody>
                         </table>

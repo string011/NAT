@@ -1,8 +1,5 @@
 package com.nerdery.snafoo.model.view;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 /**
  * View model object for rendering model data to the view.
  */
@@ -12,8 +9,9 @@ public class SnackModel {
     private String name;
     private Boolean optional;
     private String purchaseLocations;
-    private Integer purchaseCount;
-    private String lastPurchaseDate;
+    private Integer purchaseCount = 0;
+    private String lastPurchaseDate = "Never";
+    private Integer voteCount = 0;
     
 	public Integer getId() {
 		return id;
@@ -50,6 +48,12 @@ public class SnackModel {
 	}
 	public void setLastPurchaseDate(String lastPurchaseDate) {
 		this.lastPurchaseDate = lastPurchaseDate;
+	}
+	public Integer getVoteCount() {
+		return voteCount;
+	}
+	public void setVoteCount(Integer voteCount) {
+		this.voteCount = voteCount;
 	}
 
 

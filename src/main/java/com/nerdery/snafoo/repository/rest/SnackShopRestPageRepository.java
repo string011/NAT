@@ -13,8 +13,7 @@ import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
 import com.nerdery.snafoo.repository.SnackShopPageRepository;
 
 /**
- * Repository implementation using Spring's RestTemplate to query a REST endpoint for model data. It can be safely deleted once you have
- * implemented you own repository(ies).
+ * Repository implementation using Spring's RestTemplate to query a REST endpoint for Snack model data. 
  */
 @Repository
 public class SnackShopRestPageRepository implements SnackShopPageRepository {
@@ -29,7 +28,6 @@ public class SnackShopRestPageRepository implements SnackShopPageRepository {
 
 	@Override
 	public List<SnackPageModel> getSnackShopHomePage() {
-        // return restTemplate.getForObject(restUrl, SnackShopPageModel.class);
         SnackPageModel[] snacks = restTemplate.getForObject(restUrl, SnackPageModel[].class);
         List<SnackPageModel> list = Arrays.asList(snacks);
         return list;
