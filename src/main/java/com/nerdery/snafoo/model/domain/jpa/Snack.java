@@ -10,8 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /**
- * Example domain model object with a few persistence annotations. It can be
- * safely deleted once you have implemented your own model class(es).
+ * Domain model object representing a Snack.
  */
 @Entity
 public class Snack implements Serializable {
@@ -30,10 +29,14 @@ public class Snack implements Serializable {
 	private int numberOfVotes = 0;
 
 	@Column(nullable = false)
-	public boolean suggested = false;
+	private boolean suggested = false;
 	
 	@Column(nullable = true)
-	public Date suggestionDate = new Date();
+	private Date suggestionDate = new Date();
+	
+	@Column(nullable = true)
+	private String location = "none";
+
 
 	@ManyToOne
 	SnackShop snackShop;
@@ -93,5 +96,17 @@ public class Snack implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public SnackShop getSnackShop() {
+		return snackShop;
 	}
 }

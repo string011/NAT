@@ -2,6 +2,7 @@ package com.nerdery.snafoo.repository;
 
 import java.util.List;
 
+import com.nerdery.snafoo.model.domain.jpa.Snack;
 import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
 
 /**
@@ -9,4 +10,5 @@ import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
  */
 public interface SnackShopPageRepository {
     List<SnackPageModel> getSnackShopHomePage();
+	void addSuggestion(Snack snack);
 }
