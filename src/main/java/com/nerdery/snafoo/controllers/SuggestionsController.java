@@ -1,5 +1,6 @@
 package com.nerdery.snafoo.controllers;
 
+import java.awt.Dialog.ModalExclusionType;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -59,6 +60,7 @@ public class SuggestionsController {
 				SuggestionModel smx = new SuggestionModel();
 				smx.setName(sm.getName());
 				smx.setLocation(sm.getPurchaseLocations());
+				ssm.add(smx);
 			}
 		}
 		return ssm;

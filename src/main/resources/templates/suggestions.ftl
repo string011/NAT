@@ -31,10 +31,9 @@
                                     </label>
                                 </div>
                                 <select name="snackOptions" id="snackOptions">
-                                    <option value="snack1">snack suggestion 1</option>
-                                    <option value="snack2">snack suggestion 2</option>
-                                    <option value="snack3">snack suggestion 3</option>
-                                    <option value="snack4">snack suggestion 4</option>
+					            [#list suggestions.suggestions as sug ]
+                                    <option value="snack1">${sug.name}</option>
+					            [/#list]
                                 </select>
                             </div>
                         </fieldset>
@@ -48,11 +47,12 @@
                                 </label>
                             </div>
                             <div class="shelf">
+                                <input type="text" id="suggestionInput" name="name" th:field="*{name} placeholder="Snack Suggestion" />
                                 <input type="text" id="suggestionInput" th:field="*{name}" placeholder="Snack Suggestion" />
                             </div>
                             <div class="shelf">
                                 <label for="suggestionLocation" class="isHidden">Location</label>
-                                <input type="text" id="suggestionLocation" th:field="*{location}" placeholder="Location" class="" />
+                                <input type="text" id="suggestionLocation" name="location" th:field="*{location}" placeholder="Location" class="" />
                             </div>
                         </fieldset>
                         <input type="submit" value="Suggest this Snack!" class="btn">
