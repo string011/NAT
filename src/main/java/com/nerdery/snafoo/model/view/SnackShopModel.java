@@ -6,7 +6,7 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
- * View model object for rendering snack model data to the view.
+ * View model object for rendering snack model to the view.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SnackShopModel {

@@ -10,9 +10,8 @@ import com.nerdery.snafoo.model.view.SnackModel;
 import com.nerdery.snafoo.model.view.SnackShopModel;
 
 /**
- * An example Spring Converter which converts from a domain model
- * (TestFacebookPage) to a view model (TestCompanyInfo). It can be safely
- * deleted once you have implemented your own converter(s).
+ * A Spring Converter which converts from a domain model List<SnackShopModel>
+ * view model (SnackShopModel). 
  */
 @Component
 public class SnackShopConverter implements Converter<List<SnackPageModel>, SnackShopModel> {
@@ -33,14 +32,7 @@ public class SnackShopConverter implements Converter<List<SnackPageModel>, Snack
 				}
 			}
 			ssm.add(sm);
-
 		}
-		/*
-		 * String combinedDescription = source.getDescription() + " " +
-		 * source.getCompanyOverview(); List<String> urls =
-		 * Arrays.asList(source.getWebsite().split("\\s+")) .stream() .map(url
-		 * -> "http://" + url) .collect(Collectors.toList());
-		 */
 		return ssm;
 	}
 }

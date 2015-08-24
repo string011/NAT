@@ -31,46 +31,50 @@
    <link href="[@spring.url '/assets/styles/modern.css'/]" rel="stylesheet" type="text/css" media="screen"/>
     
     <script>
+    // Forcing a post request with the choosen name of the snack.
+    // Not sure how to make this more elegant with html form tag.
+    // This is used by the onClick in the voting section.
     function snackVote(snack) {
-       // alert("snack voted: " + snack);
-       var postData = "name="+snack;
-       xmlhttp=new XMLHttpRequest()
-       xmlhttp.open("POST", "/voted", false);
-       //Send the proper header information along with the request
+		var postData = "name="+snack;
+		xmlhttp=new XMLHttpRequest()
+		xmlhttp.open("POST", "/voted", false);
+		//Send the proper header information along with the request
 		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xmlhttp.setRequestHeader("Content-length", postData.length);
 		xmlhttp.send(postData);
 		incrementVoteCount();
 		window.location.reload(true)
-    }
-	    function createCookie(name,value,days) {
+	}
+    
+    function createCookie(name,value,days) {
+	    var expires = "";
 	    if (days) {
 	        var date = new Date();
 	        date.setTime(date.getTime()+(days*24*60*60*1000));
-	        var expires = "; expires="+date.toGMTString();
-	    }
-	    else var expires = "";
-	    document.cookie = name+"="+value+expires+"; path=/";
+	        expires = "; expires=" + date.toGMTString();
+	    } 
+	    document.cookie = name+"="+value + expires + "; path=/";
 	}
-
-	function readCookie(name) {
-	    var nameEQ = name + "=";
-	    var ca = document.cookie.split(';');
-	    for(var i=0;i < ca.length;i++) {
-	        var c = ca[i];
-	        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-	        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	
+	function readCookie(name){
+	    var pattern = RegExp(name + "=.[^;]*")
+	    matched = document.cookie.match(pattern)
+	    if(matched){
+	        var cookie = matched[0].split('=')
+	        var ret = cookie[1];
+	        return ret;
 	    }
-	    return null;
-	}
+	    return false
+}
 
 	function eraseCookie(name) {
 	    createCookie(name,"",-1);
 	}
 	
-	function readOrCreateVotingCount(){
+	function readOrCreateVoteCount(){
 	     var count = readCookie("voteCount");
 	     if (count == null){
+	        eraseCookie();
 	     	createCookie("voteCount", 0, 30);
 	     	return 0;
 	     }
@@ -78,9 +82,11 @@
 	}
 	
 	function incrementVoteCount(){
-	   var value = readOrCreateVotingCount();
+	   var value = readOrCreateVoteCount();
 	   ++value;
-	    document.cookie = name+"="+value+"; path=/";
+	   // I was trying to set the cookie value w/o overwriting the expiration date.
+	   // document.cookie = name + "=" + value + "; path=/";
+     	createCookie("voteCount", value, 30);
 	}
     </script>
     

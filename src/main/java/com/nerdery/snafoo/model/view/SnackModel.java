@@ -1,7 +1,7 @@
 package com.nerdery.snafoo.model.view;
 
 /**
- * View model object for rendering model data to the view.
+ * View model object for rendering a model data to the view.
  */
 public class SnackModel {
 

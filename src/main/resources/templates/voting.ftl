@@ -22,7 +22,7 @@
 	                        <p class="counter counter_green isHidden">3</p>
 	                        <p class="counter counter_yellow">
 	                           <script type="text/javascript">
-	                              document.write(readOrCreateVotingCount());
+	                              document.write(3 - readOrCreateVoteCount());
 	                           </script>
                            </p>
 	                        <p class="counter counter_red isHidden">1</p>
