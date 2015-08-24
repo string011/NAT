@@ -1,7 +1,8 @@
 package com.nerdery.snafoo.controllers;
 
-import java.awt.Dialog.ModalExclusionType;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -32,6 +33,8 @@ import com.nerdery.snafoo.services.SnackShopPageService;
 public class SuggestionsController {
 	private ConversionService converterService;
 	private SnackShopPageService snackShopPageService;
+	// Hack to simulate persistence.
+    private Map<String, SuggestionModel> savedSuggestions = new HashMap<String, SuggestionModel>();
 
     @RequestMapping(value = "/suggestions", method=RequestMethod.GET)
     public String renderPage(Model model) {
@@ -44,9 +47,16 @@ public class SuggestionsController {
     }
 
     
+    
 	@RequestMapping(value = "/suggestion", method = RequestMethod.POST)
     public String handleSuggestion(@ModelAttribute SuggestionsModel suggestions, Model model) {
 		List<SnackPageModel> domainPage = snackShopPageService.fetchSnackShopHomePage();
+		if (suggestions.getName() != null && suggestions.getLocation() != null){
+			SuggestionModel sug = new SuggestionModel();
+			sug.setName(suggestions.getName());
+			sug.setLocation(suggestions.getLocation());
+			savedSuggestions.put(sug.getName(), sug);
+		}
 		SnackShopModel snackShopInfo = converterService.convert(domainPage, SnackShopModel.class);
 		SuggestionsModel ssm = createSuggestionsModel(snackShopInfo);
 		model.addAttribute("suggestions", ssm);
@@ -62,6 +72,9 @@ public class SuggestionsController {
 				smx.setLocation(sm.getPurchaseLocations());
 				ssm.add(smx);
 			}
+		}
+		for (SuggestionModel sm : savedSuggestions.values()){
+			ssm.add(sm);
 		}
 		return ssm;
 	}

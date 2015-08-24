@@ -21,6 +21,8 @@
             </div>
             <div class="content-centered">
                 <div class="shelf shelf_2">
+                
+
                     <form action="/suggestion" th:action="@{/suggestion}" th:object="${suggestions}" method="post">
                     
                         <fieldset class="shelf shelf_2">
@@ -32,7 +34,7 @@
                                 </div>
                                 <select name="snackOptions" id="snackOptions">
 					            [#list suggestions.suggestions as sug ]
-                                    <option value="snack1">${sug.name}</option>
+                                    <option value="snack1" name="${sug.name}">${sug.name}</option>
 					            [/#list]
                                 </select>
                             </div>
@@ -48,7 +50,6 @@
                             </div>
                             <div class="shelf">
                                 <input type="text" id="suggestionInput" name="name" th:field="*{name} placeholder="Snack Suggestion" />
-                                <input type="text" id="suggestionInput" th:field="*{name}" placeholder="Snack Suggestion" />
                             </div>
                             <div class="shelf">
                                 <label for="suggestionLocation" class="isHidden">Location</label>
