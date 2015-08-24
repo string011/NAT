@@ -21,7 +21,8 @@
             </div>
             <div class="content-centered">
                 <div class="shelf shelf_2">
-                    <form method="" action="" class="form" novalidate>
+                    <form action="/suggestion" th:action="@{/suggestion}" th:object="${suggestions}" method="post">
+                    
                         <fieldset class="shelf shelf_2">
                             <div class="shelf shelf_2">
                                 <div class="shelf">
@@ -47,11 +48,11 @@
                                 </label>
                             </div>
                             <div class="shelf">
-                                <input type="text" id="suggestionInput" placeholder="Snack Suggestion" />
+                                <input type="text" id="suggestionInput" th:field="*{name}" placeholder="Snack Suggestion" />
                             </div>
                             <div class="shelf">
                                 <label for="suggestionLocation" class="isHidden">Location</label>
-                                <input type="text" id="suggestionLocation" placeholder="Location" class="" />
+                                <input type="text" id="suggestionLocation" th:field="*{location}" placeholder="Location" class="" />
                             </div>
                         </fieldset>
                         <input type="submit" value="Suggest this Snack!" class="btn">

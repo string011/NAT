@@ -31,6 +31,7 @@ public class SnackShopController {
 
 	private ConversionService converterService;
 	private SnackShopPageService snackShopPageService;
+	
 	// This is my faked data storage for voted snacks.
 	// This really should persist to a DB or web service.
 	private Map<String, SnackModel> voted = new HashMap<String, SnackModel>();
