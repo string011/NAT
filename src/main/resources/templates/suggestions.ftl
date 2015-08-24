@@ -49,7 +49,8 @@
                                 </label>
                             </div>
                             <div class="shelf">
-                                <input type="text" id="suggestionInput" name="name" th:field="*{name} placeholder="Snack Suggestion" />
+                                <label for="suggestionLocation" class="isHidden">Suggestion</label>
+                                <input type="text" id="suggestionInput" name="name" th:field="*{name}" placeholder="Snack Suggestion" />
                             </div>
                             <div class="shelf">
                                 <label for="suggestionLocation" class="isHidden">Location</label>

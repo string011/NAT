@@ -1,6 +1,7 @@
 package com.nerdery.snafoo.model.domain.jpa;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,13 +29,11 @@ public class Snack implements Serializable {
 	@Column(nullable = false)
 	private int numberOfVotes = 0;
 
-	public boolean isAlwaysPurchased() {
-		return alwaysPurchased;
-	}
-
-	public void setAlwaysPurchased(boolean alwaysPurchased) {
-		this.alwaysPurchased = alwaysPurchased;
-	}
+	@Column(nullable = false)
+	public boolean suggested = false;
+	
+	@Column(nullable = true)
+	public Date suggestionDate = new Date();
 
 	@ManyToOne
 	SnackShop snackShop;
@@ -66,5 +65,33 @@ public class Snack implements Serializable {
 
 	public void setNumberOfVotes(int numberOfVotes) {
 		this.numberOfVotes = numberOfVotes;
+	}
+	
+	public boolean isAlwaysPurchased() {
+		return alwaysPurchased;
+	}
+
+	public void setAlwaysPurchased(boolean alwaysPurchased) {
+		this.alwaysPurchased = alwaysPurchased;
+	}
+
+	public boolean isSuggested() {
+		return suggested;
+	}
+
+	public void setSuggested(boolean suggested) {
+		this.suggested = suggested;
+	}
+
+	public Date getSuggestionDate() {
+		return suggestionDate;
+	}
+
+	public void setSuggestionDate(Date suggestionDate) {
+		this.suggestionDate = suggestionDate;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 }

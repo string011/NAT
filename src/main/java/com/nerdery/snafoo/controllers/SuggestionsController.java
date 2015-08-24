@@ -30,34 +30,32 @@ import com.nerdery.snafoo.services.SnackShopPageService;
  *
  */
 @Controller
-public class SuggestionsController {
-	private ConversionService converterService;
-	private SnackShopPageService snackShopPageService;
+public class SuggestionsController extends AbstractSnackShopController {
 	// Hack to simulate persistence.
     private Map<String, SuggestionModel> savedSuggestions = new HashMap<String, SuggestionModel>();
 
     @RequestMapping(value = "/suggestions", method=RequestMethod.GET)
     public String renderPage(Model model) {
-		List<SnackPageModel> domainPage = snackShopPageService.fetchSnackShopHomePage();
-		SnackShopModel snackShopInfo = converterService.convert(domainPage, SnackShopModel.class);
+		List<SnackPageModel> domainPage = getRESTDomainPage();
+		SnackShopModel snackShopInfo = convert(domainPage);
 		
 		SuggestionsModel ssm = createSuggestionsModel(snackShopInfo);
 		model.addAttribute("suggestions", ssm);
         return "suggestions";
     }
 
-    
-    
+
+
 	@RequestMapping(value = "/suggestion", method = RequestMethod.POST)
     public String handleSuggestion(@ModelAttribute SuggestionsModel suggestions, Model model) {
-		List<SnackPageModel> domainPage = snackShopPageService.fetchSnackShopHomePage();
+		List<SnackPageModel> domainPage = getRESTDomainPage();
 		if (suggestions.getName() != null && suggestions.getLocation() != null && suggestions.getName().length() != 0){
 			SuggestionModel sug = new SuggestionModel();
 			sug.setName(suggestions.getName());
 			sug.setLocation(suggestions.getLocation());
 			savedSuggestions.put(sug.getName(), sug);
 		}
-		SnackShopModel snackShopInfo = converterService.convert(domainPage, SnackShopModel.class);
+		SnackShopModel snackShopInfo = convert(domainPage);
 		SuggestionsModel ssm = createSuggestionsModel(snackShopInfo);
 		model.addAttribute("suggestions", ssm);
         return "suggestions";
@@ -77,20 +75,5 @@ public class SuggestionsController {
 			ssm.add(sm);
 		}
 		return ssm;
-	}
-	
-	@Inject
-	public void setSnackShopPageService(SnackShopPageService snackShopPageService) {
-		this.snackShopPageService = snackShopPageService;
-	}
-
-	public ConversionService getConverterService() {
-		return converterService;
-	}
-
-	@Inject
-	@Qualifier("customConversionService")
-	public void setConverterService(ConversionService converterService) {
-		this.converterService = converterService;
 	}
 }
