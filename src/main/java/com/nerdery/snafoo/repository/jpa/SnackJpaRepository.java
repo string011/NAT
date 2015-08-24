@@ -7,8 +7,8 @@ import com.nerdery.snafoo.model.domain.jpa.Snack;
 import com.nerdery.snafoo.repository.SnackRepository;
 
 /**
- * Barebones repository for TestProject objects utilizing Spring's automatic CrudRepository implementation. It can be safely deleted once
- * you have implemented your own repository(ies).
+ * JPA Repository for Snack objects.
+ * 
  */
 @Repository
 public interface SnackJpaRepository extends CrudRepository<Snack, Long>, SnackRepository {
