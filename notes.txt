@@ -2,10 +2,25 @@
 From a new Ubuntu machine. 
 Friday night.
 Steps:
-Installed JDK8.
-Installed Eclipse.
-Installed Gradle.
-Fixed .bashrc $PATH to find gradle.
-Ran gradle to create an Eclipse project.
-Imported NAT project into Eclipse.
-Learned some gradle.
+- Installed JDK8.
+- Installed Eclipse.
+- Installed Gradle.
+- Fixed .bashrc $PATH to find gradle.
+- Ran gradle to create an Eclipse project.
+- Imported NAT project into Eclipse.
+- Learned some gradle.
+- Spent some time looking over the project structure and learning the Spring annotiations (I've not used Spring since XML config days, and way before all the AOP stuff was built)
+
+Saturday:
+- Spent time playing with JPA annotations for doing @OneToMany mapping. It is similar to JDO also more learning curve on Spring stuff like Repositories etc. The initial models I started with are really overkill for this project. Once I figured out the web service side of things, that became readily apparent.
+
+- Got into the NAT api and JSON parsing. Was able to GET and POST to the nerdery.com repo
+
+- Learned some stuff about Freemarker (never used that before) and integrated the example .html files into .ftl.
+
+- Figured out where to put the .css assets/etc. so they could be picked up by the application at runtime. I'm not used to this project structure, still not sure where the system knows to pull stuff from the src/main/resources directory. I need to understand this better.
+
+Sunday:
+- Started writing the models, and controllers for pulling REST data and presenting it on the page. Wrote converter as well.
+
+- Got stymied by the FTL programming model and javasctript cookie madness. 

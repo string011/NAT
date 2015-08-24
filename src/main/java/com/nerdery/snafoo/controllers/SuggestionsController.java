@@ -51,7 +51,7 @@ public class SuggestionsController {
 	@RequestMapping(value = "/suggestion", method = RequestMethod.POST)
     public String handleSuggestion(@ModelAttribute SuggestionsModel suggestions, Model model) {
 		List<SnackPageModel> domainPage = snackShopPageService.fetchSnackShopHomePage();
-		if (suggestions.getName() != null && suggestions.getLocation() != null){
+		if (suggestions.getName() != null && suggestions.getLocation() != null && suggestions.getName().length() != 0){
 			SuggestionModel sug = new SuggestionModel();
 			sug.setName(suggestions.getName());
 			sug.setLocation(suggestions.getLocation());
