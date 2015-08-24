@@ -55,6 +55,9 @@ public class SnackModel {
 	public void setVoteCount(Integer voteCount) {
 		this.voteCount = voteCount;
 	}
+	public void incrementVoteCount(){
+		voteCount++;
+	}
 
 
 }

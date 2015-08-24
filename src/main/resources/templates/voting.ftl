@@ -20,7 +20,11 @@
 	                    </div>
 	                    <div class="voteBox-body">
 	                        <p class="counter counter_green isHidden">3</p>
-	                        <p class="counter counter_yellow">2</p>
+	                        <p class="counter counter_yellow">
+	                           <script type="text/javascript">
+	                              document.write(readOrCreateVotingCount());
+	                           </script>
+                           </p>
 	                        <p class="counter counter_red isHidden">1</p>
 	                    </div>
 	                </div>
@@ -63,6 +67,7 @@
                             </thead>
                             <tbody>
 				            [#list snackShopInfo.snacks as snack ]
+		                            	[#if snack.optional]
 		                            <tr>
 		                                <td>${snack.name}</td>
 		                                <td>${snack.voteCount}</td>
@@ -75,6 +80,7 @@
 		                                </td>
 	                                    <td>${snack.lastPurchaseDate}</td>
 		                            </tr>
+		                                [/#if]
 			                [/#list]
                             </tbody>
                         </table>
