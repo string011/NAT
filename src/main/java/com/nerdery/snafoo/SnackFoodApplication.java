@@ -2,6 +2,7 @@ package com.nerdery.snafoo;
 
 import java.util.List;
 
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
@@ -74,10 +75,9 @@ public class SnackFoodApplication implements EmbeddedServletContainerCustomizer,
         for (SnackShop snackShop : snackShops) {
         	List<Snack> snacks = snackShop.getSnacks();
         	for (Snack snack : snacks){
-        		System.out.println(snack.getName());
+        		LoggerFactory.getLogger(SnackFoodApplication.class).debug(snack.getName());
         	}
 		}
-        snackShops.toString();
     }
 
     public static void main(String[] args) {
