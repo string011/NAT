@@ -9,22 +9,22 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * View model object for rendering snack model to the view.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SnackShopModel {
+public class SnackShopViewModel {
 	
-	private List<SnackModel> snacks = new ArrayList<SnackModel>();
+	private List<SnackViewModel> snacks = new ArrayList<SnackViewModel>();
 	
-	public SnackShopModel(){
+	public SnackShopViewModel(){
 	}
 
-	public void add(SnackModel sm) {
+	public void add(SnackViewModel sm) {
 		snacks.add(sm);
 	}
 
-	public List<SnackModel> getSnacks() {
+	public List<SnackViewModel> getSnacks() {
 		return snacks;
 	}
 
-	public void setSnacks(List<SnackModel> snacks) {
+	public void setSnacks(List<SnackViewModel> snacks) {
 		this.snacks = snacks;
 	}
 }

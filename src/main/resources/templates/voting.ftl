@@ -67,7 +67,7 @@
                             </thead>
                             <tbody>
 				            [#list snackShopInfo.snacks as snack ]
-		                            	[#if snack.optional]
+                            	[#if snack.optional]
 		                            <tr>
 		                                <td>${snack.name}</td>
 		                                <td>${snack.voteCount}</td>
@@ -80,7 +80,7 @@
 		                                </td>
 	                                    <td>${snack.lastPurchaseDate}</td>
 		                            </tr>
-		                                [/#if]
+                                [/#if]
 			                [/#list]
                             </tbody>
                         </table>

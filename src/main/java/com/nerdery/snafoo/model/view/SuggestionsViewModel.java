@@ -9,26 +9,26 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * View model object for rendering suggestions model to the view.
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SuggestionsModel {
+public class SuggestionsViewModel {
 	
-	private List<SuggestionModel> suggestions = new ArrayList<SuggestionModel>();
+	private List<SuggestionViewModel> suggestions = new ArrayList<SuggestionViewModel>();
 	
 	// Name and location are used when the form/model is sent via a post.
 	private String name;
 	private String location;
 	
-	public SuggestionsModel(){
+	public SuggestionsViewModel(){
 	}
 
-	public void add(SuggestionModel sm) {
+	public void add(SuggestionViewModel sm) {
 		suggestions.add(sm);
 	}
 
-	public List<SuggestionModel> getSuggestions() {
+	public List<SuggestionViewModel> getSuggestions() {
 		return suggestions;
 	}
 
-	public void setSnacks(List<SuggestionModel> snacks) {
+	public void setSnacks(List<SuggestionViewModel> snacks) {
 		this.suggestions = snacks;
 	}
 
@@ -48,7 +48,7 @@ public class SuggestionsModel {
 		this.location = location;
 	}
 
-	public void setSuggestions(List<SuggestionModel> suggestions) {
+	public void setSuggestions(List<SuggestionViewModel> suggestions) {
 		this.suggestions = suggestions;
 	}
 }

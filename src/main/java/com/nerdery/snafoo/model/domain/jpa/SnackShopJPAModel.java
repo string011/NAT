@@ -19,7 +19,7 @@ import javax.persistence.OneToMany;
  * safely deleted once you have implemented your own model class(es).
  */
 @Entity
-public class SnackShop implements Serializable {
+public class SnackShopJPAModel implements Serializable {
 
 	private static final long serialVersionUID = -5987956919233977335L;
 
@@ -36,15 +36,15 @@ public class SnackShop implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinTable(name = "snack_shop_snack", joinColumns = { @JoinColumn(name = "shop_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "snack_id") })
-	List<Snack> snacks = new ArrayList<Snack>();
+	List<SnackJPAModel> snacks = new ArrayList<SnackJPAModel>();
 
-	public SnackShop() {
+	public SnackShopJPAModel() {
 	}
 
-	public SnackShop(String name, int hours, int developers) {
+	public SnackShopJPAModel(String name, int hours, int developers) {
 		this.name = name;
 		for (int idx = 0; idx < developers; ++idx) {
-			snacks.add(new Snack("Snack" + String.valueOf(developers), false));
+			snacks.add(new SnackJPAModel("SnackJPAModel" + String.valueOf(developers), false));
 		}
 	}
 
@@ -60,11 +60,11 @@ public class SnackShop implements Serializable {
 		this.name = name;
 	}
 
-	public List<Snack> getSnacks() {
+	public List<SnackJPAModel> getSnacks() {
 		return snacks;
 	}
 
-	public void add(Snack snack) {
+	public void add(SnackJPAModel snack) {
 		getSnacks().add(snack);
 	}
 }

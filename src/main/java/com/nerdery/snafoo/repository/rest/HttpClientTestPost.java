@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
-import com.nerdery.snafoo.model.domain.rest.SuggestionPageModel;
+import com.nerdery.snafoo.model.domain.rest.SuggestionRESTModel;
 
 public class HttpClientTestPost {
 
@@ -19,12 +19,12 @@ public class HttpClientTestPost {
 			// URL("https://api-snacks.nerderylabs.com/v1/snacks/?ApiKey=3db4ceed-81f4-47dc-b34a-31ba6a0aef88");
 			RestTemplate rt = new RestTemplate();
 			url = new URI("https://api-snacks.nerderylabs.com/v1/snacks?ApiKey=0eaeec59-fa32-420c-9cc4-e6b96633e211");
-			// URI ret = rt.postForLocation(url, new SuggestionPageModel(), );
-			SuggestionPageModel spm = new SuggestionPageModel();
+			// URI ret = rt.postForLocation(url, new SuggestionRESTModel(), );
+			SuggestionRESTModel spm = new SuggestionRESTModel();
 			spm.setName("Pork belly");
 			spm.setLocation("A farm");
-			// rt.postForObject(url, spm, SuggestionPageModel.class);
-			ResponseEntity<SuggestionPageModel> response = rt.postForEntity(url, spm, SuggestionPageModel.class);
+			// rt.postForObject(url, spm, SuggestionRESTModel.class);
+			ResponseEntity<SuggestionRESTModel> response = rt.postForEntity(url, spm, SuggestionRESTModel.class);
 			HttpStatus status = response.getStatusCode();
 			status.toString();
 

@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class SnackPageModel {
 
     @JsonProperty("id")
-    private Integer id;
+    private Long id;
     
     @JsonProperty("name")
     private String name;
@@ -27,10 +27,10 @@ public class SnackPageModel {
     @JsonProperty("lastPurchaseDate")
     private String lastPurchaseDate;
     
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getName() {

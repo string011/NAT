@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.nerdery.snafoo.model.domain.jpa.Snack;
+import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
 import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
 import com.nerdery.snafoo.model.view.ErrorModel;
-import com.nerdery.snafoo.model.view.SnackModel;
-import com.nerdery.snafoo.model.view.SnackShopModel;
-import com.nerdery.snafoo.model.view.SuggestionModel;
-import com.nerdery.snafoo.model.view.SuggestionsModel;
+import com.nerdery.snafoo.model.view.SnackViewModel;
+import com.nerdery.snafoo.model.view.SnackShopViewModel;
+import com.nerdery.snafoo.model.view.SuggestionViewModel;
+import com.nerdery.snafoo.model.view.SuggestionsViewModel;
 import com.nerdery.snafoo.services.WebServicePostException;
 
 /**
@@ -33,42 +33,39 @@ public class SuggestionsController extends AbstractSnackShopController {
 	@RequestMapping(value = "/suggestions", method = RequestMethod.GET)
 	public String renderPage(Model model) {
 		List<SnackPageModel> domainPage = getRESTDomainPage();
-		SnackShopModel snackShopInfo = convert(domainPage);
-
-		SuggestionsModel ssm = createSuggestionsModel(snackShopInfo);
+		SnackShopViewModel snackShopInfo = convert(domainPage);
+		SuggestionsViewModel ssm = createSuggestionsModel(snackShopInfo);
 		model.addAttribute("suggestions", ssm);
 		return "suggestions";
 	}
 
 	@RequestMapping(value = "/suggestion", method = RequestMethod.POST)
-	public String handleSuggestion(@ModelAttribute SuggestionsModel suggestions, Model model) {
+	public String handleSuggestion(@ModelAttribute SuggestionsViewModel suggestions, Model model) {
 		List<SnackPageModel> domainPage = getRESTDomainPage();
+		SnackShopViewModel snackShopInfo = convert(domainPage);
 		String error = null;
 		if (suggestions.getName() != null && suggestions.getLocation() != null && suggestions.getName().length() != 0) {
-			SuggestionModel sug = new SuggestionModel();
+			SuggestionViewModel sug = new SuggestionViewModel();
 			sug.setName(suggestions.getName());
 			sug.setLocation(suggestions.getLocation());
-			// post the suggestion to the REST endpoint, and to the local JPA
-			// repo
+			// post the suggestion to the REST endpoint, and to the local JPA repo.
 			error = postSuggestionToWebService(sug);
-			// savedSuggestions.put(sug.getName(), sug);
-			// find the matching snack from local DB and update if it exists.
-			// if it doesn't exist, put it in the local db.
+			// find the matching snack from local DB and create a new instance if necessary.
 			if (error == null) {
 				try {
-					Snack snack = findSnackByName(sug.getName());
+					SnackJPAModel snack = findSnackByName(sug.getName());
+					
 				} catch (SnackNotFoundException e) {
-					Snack snack = new Snack();
-					snack.setName(sug.getName());
-					snack.setSuggestionDate(new Date());
-					snackRepository.save(snack);
+					// This is here to handle snacks that are 
+					createSnack(sug.getName());
 				}
 			}
 		} else {
 			error = "Name and location are required";
 		}
-		SnackShopModel snackShopInfo = convert(domainPage);
-		SuggestionsModel ssm = createSuggestionsModel(snackShopInfo);
+		domainPage = getRESTDomainPage();
+		snackShopInfo = convert(domainPage);
+		SuggestionsViewModel ssm = createSuggestionsModel(snackShopInfo);
 		model.addAttribute("suggestions", ssm);
 		if (error != null) {
 			model.addAttribute("xerror", new ErrorModel(error));
@@ -83,8 +80,8 @@ public class SuggestionsController extends AbstractSnackShopController {
 	 * @param sug
 	 * @return an error message or null.
 	 */
-	private String postSuggestionToWebService(SuggestionModel sug) {
-		Snack snack = new Snack();
+	private String postSuggestionToWebService(SuggestionViewModel sug) {
+		SnackJPAModel snack = new SnackJPAModel();
 		snack.setName(sug.getName());
 		snack.setLocation(sug.getLocation());
 		try {
@@ -99,15 +96,17 @@ public class SuggestionsController extends AbstractSnackShopController {
 	}
 
 	/**
-	 * Create the SuggestionModel for the view from the given SnackShopModel.
+	 * Create the SuggestionViewModel for the view from the given
+	 * SnackShopViewModel.
+	 * 
 	 * @param snackShopInfo
-	 * @return a fresh SuggestionModel.
+	 * @return a fresh SuggestionViewModel.
 	 */
-	protected SuggestionsModel createSuggestionsModel(SnackShopModel snackShopInfo) {
-		SuggestionsModel ssm = new SuggestionsModel();
-		for (SnackModel sm : snackShopInfo.getSnacks()) {
+	protected SuggestionsViewModel createSuggestionsModel(SnackShopViewModel snackShopInfo) {
+		SuggestionsViewModel ssm = new SuggestionsViewModel();
+		for (SnackViewModel sm : snackShopInfo.getSnacks()) {
 			if (sm.getPurchaseCount() == 0) {
-				SuggestionModel smx = new SuggestionModel();
+				SuggestionViewModel smx = new SuggestionViewModel();
 				smx.setName(sm.getName());
 				smx.setLocation(sm.getPurchaseLocations());
 				ssm.add(smx);

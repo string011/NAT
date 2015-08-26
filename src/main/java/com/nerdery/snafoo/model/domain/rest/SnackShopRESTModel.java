@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * Domain model object to handle JSON unmarshalled data. 
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SnackShopPageModel {
+public class SnackShopRESTModel {
 
 	List<SnackPageModel> snacks;
 

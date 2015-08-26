@@ -3,7 +3,7 @@ package com.nerdery.snafoo.model.domain.rest;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @JsonSerialize
-public class SuggestionPageModel {
+public class SuggestionRESTModel {
 
 	private String name = "snaussage";
 	private String location = "petco";

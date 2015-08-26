@@ -1,11 +1,11 @@
 package com.nerdery.snafoo.repository;
 
-import com.nerdery.snafoo.model.domain.jpa.SnackShop;
+import com.nerdery.snafoo.model.domain.jpa.SnackShopJPAModel;
 
 /**
- * Base interface for SnackShop
+ * Base interface for SnackShopJPAModel
  */
 public interface SnackShopRepository {
-    Iterable<SnackShop> findAll();
-    SnackShop save(SnackShop snackShop);
+    Iterable<SnackShopJPAModel> findAll();
+    SnackShopJPAModel save(SnackShopJPAModel snackShop);
 }

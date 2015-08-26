@@ -1,19 +1,20 @@
 package com.nerdery.snafoo.controllers;
 
-import java.util.HashMap;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.view.RedirectView;
 
-import com.nerdery.snafoo.model.domain.jpa.Snack;
+import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
 import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
-import com.nerdery.snafoo.model.view.SnackModel;
-import com.nerdery.snafoo.model.view.SnackShopModel;
+import com.nerdery.snafoo.model.view.SnackShopViewModel;
+import com.nerdery.snafoo.model.view.SnackViewModel;
 
 /**
  * Top level entry point for the snack shop. Handles control of the 'main' page
@@ -27,7 +28,8 @@ public class SnackShopController extends AbstractSnackShopController {
 
 	// This is my faked data storage for voted snacks.
 	// This really should persist to a DB or web service.
-	private Map<String, SnackModel> voted = new HashMap<String, SnackModel>();
+	// private Map<String, SnackViewModel> voted = new HashMap<String,
+	// SnackViewModel>();
 
 	/*
 	 * @RequestMapping("/errorTest") public void renderErrorPage() { throw new
@@ -37,10 +39,18 @@ public class SnackShopController extends AbstractSnackShopController {
 	@RequestMapping("/")
 	public String renderPage(Model model) {
 		List<SnackPageModel> domainPage = getRESTDomainPage();
-		SnackShopModel snackShopInfo = convert(domainPage);
-		for (SnackModel sm : snackShopInfo.getSnacks()) {
-			if (voted.containsKey(sm.getName())) {
-				sm.setVoteCount(voted.get(sm.getName()).getVoteCount());
+		SnackShopViewModel snackShopInfo = convert(domainPage);
+		for (SnackViewModel sm : snackShopInfo.getSnacks()) {
+			SnackJPAModel snack = null;
+			try {
+				snack = findSnackByName(sm.getName());
+			} catch (SnackNotFoundException e) {
+				if (sm.isOptional()) {
+					snack = createSnack(sm.getName());
+				}
+			}
+			if (snack != null) {
+				sm.setVoteCount(snack.getVoteCount());
 			}
 		}
 		model.addAttribute("snackShopInfo", snackShopInfo);
@@ -56,33 +66,47 @@ public class SnackShopController extends AbstractSnackShopController {
 	 * @return the redirect location;
 	 */
 	@RequestMapping(value = "/voted", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
-	public String handleSnackVote(@RequestBody String postPayload) {
+	public RedirectView handleSnackVote(@RequestBody String postPayload) {
 		String[] kv = postPayload.split("=");
 		@SuppressWarnings("unused")
 		String key = kv[0];
-		String value = kv[1];
+		String value = null;
+		try {
+			value = URLDecoder.decode(kv[1], "UTF8");
+		} catch (UnsupportedEncodingException e1) {
+			getLogger().error("", e1);
+		}
 
 		List<SnackPageModel> domainPage = getRESTDomainPage();
-		SnackShopModel snackShopInfo = convert(domainPage);
-		for (SnackModel sm : snackShopInfo.getSnacks()) {
+		SnackShopViewModel snackShopInfo = convert(domainPage);
+		for (SnackViewModel sm : snackShopInfo.getSnacks()) {
 			if (value.equals(sm.getName())) {
-				if (!voted.containsKey(sm.getName())) {
-					voted.put(sm.getName(), sm);
-				} else {
-					sm = voted.get(sm.getName());
+				if (sm.isOptional() && !sm.isPurchased()) {
+					sm.incrementVoteCount();
+					try {
+						SnackJPAModel snack = findSnackByName(sm.getName());
+						snack.incrementVoteCount();
+						save(snack);
+					} catch (SnackNotFoundException e) {
+						getLogger().info("snack not found creating new DB entry: " + sm.getName());
+						SnackJPAModel snack = new SnackJPAModel();
+						snack.setName(sm.getName());
+						snack.incrementVoteCount();
+						snack.setId(sm.getId());
+						snack.setLocation(sm.getPurchaseLocations());
+						save(snack);
+					}
 				}
-				sm.incrementVoteCount();
-
-				try {
-					Snack snack = findSnackByName(sm.getName());
-					snack.incrementVoteCount();
-					save(snack);
-				} catch (SnackNotFoundException e) {
-					getLogger().error("Unhandled snack not found: " + sm.getName(), e);
-				}
-
 			}
 		}
-		return "redirect:/";
+		// return "redirect:/";
+		return safeRedirect("/");
+	}
+
+	public RedirectView safeRedirect(String url) {
+		RedirectView rv = new RedirectView(url);
+		rv.setExposeModelAttributes(false);
+		rv.setContextRelative(true);
+		return rv;
 	}
 }

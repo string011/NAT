@@ -3,6 +3,7 @@
  */
 package com.nerdery.snafoo.controllers;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,15 +12,15 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
 
 import com.nerdery.snafoo.common.Logging;
-import com.nerdery.snafoo.model.domain.jpa.Snack;
+import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
 import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
-import com.nerdery.snafoo.model.view.SnackShopModel;
+import com.nerdery.snafoo.model.view.SnackShopViewModel;
 import com.nerdery.snafoo.repository.SnackRepository;
 import com.nerdery.snafoo.repository.SnackShopRepository;
 import com.nerdery.snafoo.services.SnackShopPageService;
 
 /**
- * Abstract controller for all 'SnackShop' related controllers
+ * Abstract controller for all 'SnackShopJPAModel' related controllers
  * @author string
  *
  */
@@ -30,14 +31,52 @@ public class AbstractSnackShopController implements Logging{
 	protected SnackShopRepository snackShopRepository;
 	protected SnackRepository snackRepository;
 	
-	protected SnackShopModel convert(List<SnackPageModel> domainPage) {
-		SnackShopModel snackShopInfo = converterService.convert(domainPage, SnackShopModel.class);
+	protected SnackShopViewModel convert(List<SnackPageModel> domainPage) {
+		SnackShopViewModel snackShopInfo = converterService.convert(domainPage, SnackShopViewModel.class);
 		return snackShopInfo;
 	}
 
 	protected List<SnackPageModel> getRESTDomainPage() {
 		List<SnackPageModel> domainPage = snackShopPageService.fetchSnackShopHomePage();
 		return domainPage;
+	}
+	
+	/**
+	 * Fetch a SnackJPAModel from the local db. 
+	 * This is sub-optimal in that it really should be a query in the repo itself, 
+	 * and not just a linear search.
+	 * @param name
+	 * @return the snack instance if found.
+	 * @throws SnackNotFoundException
+	 */
+	public SnackJPAModel findSnackByName(String name) throws SnackNotFoundException {
+		Iterable<SnackJPAModel> snacks = snackRepository.findAll();
+		for (SnackJPAModel s : snacks) {
+			if (s.getName().equals(name)) {
+				return s;
+			}
+		}
+		throw new SnackNotFoundException(name);
+	}
+	
+	/**
+	 * Save a SnackJPAModel to the local DB.
+	 * @param snack
+	 */
+	public SnackJPAModel save(SnackJPAModel snack){
+		return snackRepository.save(snack);
+	}
+
+	/**
+	 * Create a new SnackJPAModel instance and store in the local DB.
+	 * @param name
+	 * @return the new snack.
+	 */
+	protected SnackJPAModel createSnack(String name) {
+		getLogger().debug("Creating new snack in the local DB");
+		SnackJPAModel snack = new SnackJPAModel(name);
+		snack.setSuggestionDate(new Date());
+		return snackRepository.save(snack);
 	}
 
 	public SnackShopPageService getSnackShopPageService() {
@@ -76,32 +115,6 @@ public class AbstractSnackShopController implements Logging{
 	@Inject
 	public void setSnackRepository(SnackRepository snackRepository) {
 		this.snackRepository = snackRepository;
-	}
-
-	/**
-	 * Find a Snack from the local db. 
-	 * This is sub-optimal in that is really should be a query in the repo itself, 
-	 * and not just a linear search.
-	 * @param name
-	 * @return the snack instance if found.
-	 * @throws SnackNotFoundException
-	 */
-	public Snack findSnackByName(String name) throws SnackNotFoundException {
-		Iterable<Snack> snacks = snackRepository.findAll();
-		for (Snack s : snacks) {
-			if (s.getName().equals(name)) {
-				return s;
-			}
-		}
-		throw new SnackNotFoundException(name);
-	}
-	
-	/**
-	 * Save a Snack to the local DB.
-	 * @param snack
-	 */
-	public Snack save(Snack snack){
-		return snackRepository.save(snack);
 	}
 
 }

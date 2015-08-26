@@ -18,9 +18,8 @@ import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.util.Assert;
 
 import com.nerdery.snafoo.common.Logging;
-import com.nerdery.snafoo.model.domain.jpa.ExampleProjectModel2;
-import com.nerdery.snafoo.model.domain.jpa.Snack;
-import com.nerdery.snafoo.model.domain.jpa.SnackShop;
+import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
+import com.nerdery.snafoo.model.domain.jpa.SnackShopJPAModel;
 import com.nerdery.snafoo.repository.SnackRepository;
 import com.nerdery.snafoo.repository.SnackShopRepository;
 
@@ -58,6 +57,7 @@ public class SnackFoodApplication implements EmbeddedServletContainerCustomizer,
         mappings.add("json","application/json");
         container.setMimeMappings(mappings);
     }
+    
     /**
      * See the database with example data. This method can be re-purposed or deleted when you create your snack food implementation.
      *
@@ -69,12 +69,12 @@ public class SnackFoodApplication implements EmbeddedServletContainerCustomizer,
         SnackRepository  snackRepository = (SnackRepository) context.getBeanFactory().getBean("snackJpaRepository");
         Assert.notNull(snackRepository, "Failed to seed test database, due to missing repository object.");
         for (int i = 1; i < 4; i++) {
-            snackShopRepository.save(new SnackShop("SnackShop " + i, i * 100, i * 2));
+            snackShopRepository.save(new SnackShopJPAModel("SnackShopJPAModel " + i, i * 100, i * 2));
         }
-        Iterable<SnackShop>snackShops = snackShopRepository.findAll();
-        for (SnackShop snackShop : snackShops) {
-        	List<Snack> snacks = snackShop.getSnacks();
-        	for (Snack snack : snacks){
+        Iterable<SnackShopJPAModel>snackShops = snackShopRepository.findAll();
+        for (SnackShopJPAModel snackShop : snackShops) {
+        	List<SnackJPAModel> snacks = snackShop.getSnacks();
+        	for (SnackJPAModel snack : snacks){
         		LoggerFactory.getLogger(SnackFoodApplication.class).debug(snack.getName());
         	}
 		}

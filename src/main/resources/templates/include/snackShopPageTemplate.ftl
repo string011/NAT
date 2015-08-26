@@ -35,15 +35,20 @@
     // Not sure how to make this more elegant with html form tag.
     // This is used by the onClick in the voting section.
     function snackVote(snack) {
-		var postData = "name="+snack;
+		var postData = "name=" + encodeURIComponent(snack);
 		xmlhttp=new XMLHttpRequest()
-		xmlhttp.open("POST", "/voted", false);
+		xmlhttp.open("POST", "/voted", true);
 		//Send the proper header information along with the request
 		xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-		xmlhttp.setRequestHeader("Content-length", postData.length);
+		xmlhttp.setRequestHeader("Connection", "close");
+		xmlhttp.onreadystatechange = function() {   //Call a function when the state changes.
+			if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				alert(xmlhttp.responseText);
+				window.location.reload(true);
+			}
+		}
 		xmlhttp.send(postData);
 		incrementVoteCount();
-		window.location.reload(true)
 	}
     
     function createCookie(name,value,days) {

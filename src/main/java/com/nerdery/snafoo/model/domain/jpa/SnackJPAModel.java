@@ -10,10 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 /**
- * Domain model object representing a Snack.
+ * Domain model object representing a SnackJPAModel.
  */
 @Entity
-public class Snack implements Serializable {
+public class SnackJPAModel implements Serializable {
 
 	@Id
 	@GeneratedValue
@@ -39,15 +39,31 @@ public class Snack implements Serializable {
 
 
 	@ManyToOne
-	SnackShop snackShop;
+	SnackShopJPAModel snackShop;
 
 
-	public Snack() {
+	/**
+	 * Default no-arg constructor.
+	 */
+	public SnackJPAModel() {
 	}
 
-	public Snack(String name, boolean alwaysPurchased) {
+	/**
+	 * Constructor for a new SnackJPAModel.
+	 * @param name - The name of the snack.
+	 * @param alwaysPurchased
+	 */
+	public SnackJPAModel(String name, boolean alwaysPurchased) {
 		this.name = name;
 		this.alwaysPurchased = alwaysPurchased;
+	}
+
+	/**
+	 * Constructor for a new SnackJPAModel. Defaults to 'optionally purchased'.
+	 * @param name - The name of the snack.
+	 */
+	public SnackJPAModel(String name) {
+		this(name, false);
 	}
 
 	public Long getId() {
@@ -106,7 +122,7 @@ public class Snack implements Serializable {
 		this.location = location;
 	}
 
-	public SnackShop getSnackShop() {
+	public SnackShopJPAModel getSnackShop() {
 		return snackShop;
 	}
 

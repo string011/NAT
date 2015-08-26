@@ -6,21 +6,21 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
 import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
-import com.nerdery.snafoo.model.view.SnackModel;
-import com.nerdery.snafoo.model.view.SnackShopModel;
+import com.nerdery.snafoo.model.view.SnackViewModel;
+import com.nerdery.snafoo.model.view.SnackShopViewModel;
 
 /**
- * A Spring Converter which converts from a domain model List<SnackShopModel>
- * view model (SnackShopModel). 
+ * A Spring Converter which converts from a domain model List<SnackShopViewModel>
+ * view model (SnackShopViewModel). 
  */
 @Component
-public class SnackShopConverter implements Converter<List<SnackPageModel>, SnackShopModel> {
+public class SnackShopConverter implements Converter<List<SnackPageModel>, SnackShopViewModel> {
 
 	@Override
-	public SnackShopModel convert(List<SnackPageModel> source) {
-		SnackShopModel ssm = new SnackShopModel();
+	public SnackShopViewModel convert(List<SnackPageModel> source) {
+		SnackShopViewModel ssm = new SnackShopViewModel();
 		for (SnackPageModel snack : source) {
-			SnackModel sm = new SnackModel();
+			SnackViewModel sm = new SnackViewModel();
 			sm.setId(snack.getId());
 			sm.setName(snack.getName());
 			sm.setOptional(snack.getOptional());

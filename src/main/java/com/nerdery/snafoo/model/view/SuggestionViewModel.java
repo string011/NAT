@@ -3,7 +3,7 @@ package com.nerdery.snafoo.model.view;
 /**
  * View model object for rendering a model data to the view.
  */
-public class SuggestionModel {
+public class SuggestionViewModel {
 
     private String name;
     private String location = "Never";
