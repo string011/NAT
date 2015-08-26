@@ -26,7 +26,7 @@ public class Snack implements Serializable {
 	private boolean alwaysPurchased = false;
 	
 	@Column(nullable = false)
-	private int numberOfVotes = 0;
+	private int voteCount = 0;
 
 	@Column(nullable = false)
 	private boolean suggested = false;
@@ -62,12 +62,12 @@ public class Snack implements Serializable {
 		this.name = name;
 	}
 	
-	public int getNumberOfVotes() {
-		return numberOfVotes;
+	public int getVoteCount() {
+		return voteCount;
 	}
 
 	public void setNumberOfVotes(int numberOfVotes) {
-		this.numberOfVotes = numberOfVotes;
+		this.voteCount = numberOfVotes;
 	}
 	
 	public boolean isAlwaysPurchased() {
@@ -108,5 +108,9 @@ public class Snack implements Serializable {
 
 	public SnackShop getSnackShop() {
 		return snackShop;
+	}
+
+	public void incrementVoteCount() {
+		++voteCount;
 	}
 }

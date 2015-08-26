@@ -29,8 +29,6 @@ import com.nerdery.snafoo.services.WebServicePostException;
  */
 @Controller
 public class SuggestionsController extends AbstractSnackShopController {
-	// Hack to simulate persistence.
-	private Map<String, SuggestionModel> savedSuggestions = new HashMap<String, SuggestionModel>();
 
 	@RequestMapping(value = "/suggestions", method = RequestMethod.GET)
 	public String renderPage(Model model) {
@@ -56,13 +54,15 @@ public class SuggestionsController extends AbstractSnackShopController {
 			// savedSuggestions.put(sug.getName(), sug);
 			// find the matching snack from local DB and update if it exists.
 			// if it doesn't exist, put it in the local db.
-			try {
-				Snack snack = findSnackByName(sug.getName());
-			} catch (SnackNotFoundException e) {
-				Snack snack = new Snack();
-				snack.setName(sug.getName());
-				snack.setSuggestionDate(new Date());
-				snackRepository.save(snack);
+			if (error == null) {
+				try {
+					Snack snack = findSnackByName(sug.getName());
+				} catch (SnackNotFoundException e) {
+					Snack snack = new Snack();
+					snack.setName(sug.getName());
+					snack.setSuggestionDate(new Date());
+					snackRepository.save(snack);
+				}
 			}
 		} else {
 			error = "Name and location are required";
@@ -91,24 +91,18 @@ public class SuggestionsController extends AbstractSnackShopController {
 			getSnackShopPageService().addSuggestion(snack);
 		} catch (WebServicePostException e) {
 			// XXX This is a hack just to test the flow of error handling.
-			if (e.getCode() == 409){
+			if (e.getCode() == 409) {
 				return "This snack already exists";
 			}
 		}
 		return null;
-
 	}
 
-	public Snack findSnackByName(String name) throws SnackNotFoundException {
-		Iterable<Snack> snacks = snackRepository.findAll();
-		for (Snack s : snacks) {
-			if (s.getName().equals(name)) {
-				return s;
-			}
-		}
-		throw new SnackNotFoundException(name);
-	}
-
+	/**
+	 * Create the SuggestionModel for the view from the given SnackShopModel.
+	 * @param snackShopInfo
+	 * @return a fresh SuggestionModel.
+	 */
 	protected SuggestionsModel createSuggestionsModel(SnackShopModel snackShopInfo) {
 		SuggestionsModel ssm = new SuggestionsModel();
 		for (SnackModel sm : snackShopInfo.getSnacks()) {
@@ -118,9 +112,6 @@ public class SuggestionsController extends AbstractSnackShopController {
 				smx.setLocation(sm.getPurchaseLocations());
 				ssm.add(smx);
 			}
-		}
-		for (SuggestionModel sm : savedSuggestions.values()) {
-			ssm.add(sm);
 		}
 		return ssm;
 	}

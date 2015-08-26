@@ -95,7 +95,7 @@
 
     <div class="masthead" role="banner">
         <div class="masthead-hd">
-            <h1 class="hdg hdg_1 mix-hdg_extraBold"><a href="index.html">SnaFoo</a>
+            <h1 class="hdg hdg_1 mix-hdg_extraBold"><a href="/">SnaFoo</a>
             </h1>
             <p class="masthead-hd-sub">Nerdery Snack Food Ordering System</p>
         </div>

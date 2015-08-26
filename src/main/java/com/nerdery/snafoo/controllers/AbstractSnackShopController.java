@@ -10,6 +10,8 @@ import javax.inject.Inject;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
 
+import com.nerdery.snafoo.common.Logging;
+import com.nerdery.snafoo.model.domain.jpa.Snack;
 import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
 import com.nerdery.snafoo.model.view.SnackShopModel;
 import com.nerdery.snafoo.repository.SnackRepository;
@@ -21,7 +23,7 @@ import com.nerdery.snafoo.services.SnackShopPageService;
  * @author string
  *
  */
-public class AbstractSnackShopController {
+public class AbstractSnackShopController implements Logging{
 
 	protected ConversionService converterService;
 	protected SnackShopPageService snackShopPageService;
@@ -74,6 +76,32 @@ public class AbstractSnackShopController {
 	@Inject
 	public void setSnackRepository(SnackRepository snackRepository) {
 		this.snackRepository = snackRepository;
+	}
+
+	/**
+	 * Find a Snack from the local db. 
+	 * This is sub-optimal in that is really should be a query in the repo itself, 
+	 * and not just a linear search.
+	 * @param name
+	 * @return the snack instance if found.
+	 * @throws SnackNotFoundException
+	 */
+	public Snack findSnackByName(String name) throws SnackNotFoundException {
+		Iterable<Snack> snacks = snackRepository.findAll();
+		for (Snack s : snacks) {
+			if (s.getName().equals(name)) {
+				return s;
+			}
+		}
+		throw new SnackNotFoundException(name);
+	}
+	
+	/**
+	 * Save a Snack to the local DB.
+	 * @param snack
+	 */
+	public Snack save(Snack snack){
+		return snackRepository.save(snack);
 	}
 
 }

@@ -10,18 +10,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.nerdery.snafoo.model.domain.jpa.Snack;
 import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
 import com.nerdery.snafoo.model.view.SnackModel;
 import com.nerdery.snafoo.model.view.SnackShopModel;
 
 /**
- * Top level entry point for the snack shop.
+ * Top level entry point for the snack shop. Handles control of the 'main' page
+ * and vote submissions.
  * 
  * @author string
  *
  */
 @Controller
-public class SnackShopController extends AbstractSnackShopController{
+public class SnackShopController extends AbstractSnackShopController {
 
 	// This is my faked data storage for voted snacks.
 	// This really should persist to a DB or web service.
@@ -31,7 +33,6 @@ public class SnackShopController extends AbstractSnackShopController{
 	 * @RequestMapping("/errorTest") public void renderErrorPage() { throw new
 	 * RestClientException("This is a fake RestClientException."); }
 	 */
-	
 
 	@RequestMapping("/")
 	public String renderPage(Model model) {
@@ -46,11 +47,11 @@ public class SnackShopController extends AbstractSnackShopController{
 		return "voting";
 	}
 
-
 	/**
-	 * Handle the case when a user votes for a snack.
-	 * This is quick and dirty, but I didn't know how to deal with the button selection
-	 * in a dynamic table via form submission. 
+	 * Handle the case when a user votes for a snack. This is quick and dirty,
+	 * but I didn't know how to deal with the button selection in a dynamic
+	 * table via form submission.
+	 * 
 	 * @param postPayload
 	 * @return the redirect location;
 	 */
@@ -71,6 +72,15 @@ public class SnackShopController extends AbstractSnackShopController{
 					sm = voted.get(sm.getName());
 				}
 				sm.incrementVoteCount();
+
+				try {
+					Snack snack = findSnackByName(sm.getName());
+					snack.incrementVoteCount();
+					save(snack);
+				} catch (SnackNotFoundException e) {
+					getLogger().error("Unhandled snack not found: " + sm.getName(), e);
+				}
+
 			}
 		}
 		return "redirect:/";
