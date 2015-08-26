@@ -22,7 +22,7 @@ public class SnackShopPageService {
         return snackShopPageRepository.getSnackShopHomePage();
     }
     
-    public Snack addSuggestion(Snack snack){
+    public Snack addSuggestion(Snack snack) throws WebServicePostException{
     	return snackShopPageRepository.addSuggestion(snack);
     }
 
