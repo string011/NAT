@@ -10,5 +10,5 @@ import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
  */
 public interface SnackShopPageRepository {
     List<SnackPageModel> getSnackShopHomePage();
-	void addSuggestion(Snack snack);
+	Snack addSuggestion(Snack snack);
 }

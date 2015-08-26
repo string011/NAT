@@ -11,16 +11,22 @@ public class SnackPageModel {
 
     @JsonProperty("id")
     private Integer id;
+    
     @JsonProperty("name")
     private String name;
+    
     @JsonProperty("optional")
     private Boolean optional;
+    
     @JsonProperty("purchaseLocations")
     private String purchaseLocations;
+    
     @JsonProperty("purchaseCount")
     private Integer purchaseCount;
+    
     @JsonProperty("lastPurchaseDate")
     private String lastPurchaseDate;
+    
 	public Integer getId() {
 		return id;
 	}
@@ -57,6 +63,4 @@ public class SnackPageModel {
 	public void setLastPurchaseDate(String lastPurchaseDate) {
 		this.lastPurchaseDate = lastPurchaseDate;
 	}
-
-
 }

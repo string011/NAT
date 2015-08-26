@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.nerdery.snafoo.model.domain.jpa.Snack;
 import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
 import com.nerdery.snafoo.repository.SnackShopPageRepository;
 
@@ -19,6 +20,10 @@ public class SnackShopPageService {
 
     public List<SnackPageModel> fetchSnackShopHomePage() {
         return snackShopPageRepository.getSnackShopHomePage();
+    }
+    
+    public Snack addSuggestion(Snack snack){
+    	return snackShopPageRepository.addSuggestion(snack);
     }
 
     @Inject

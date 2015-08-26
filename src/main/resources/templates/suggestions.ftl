@@ -13,9 +13,17 @@
             <div class="shelf shelf_5">
                 <h2 class="hdg hdg_1">Suggestions</h2>
             </div>
+            
             <div class="shelf shelf_2">
-                <div class="error isHidden">You have attempted to add more than the allowed number of suggestions per month!
-                    <br />There is a total of three allowed suggestions per month.</div>
+            [#if xerror??]
+                <div class="error"><p>${xerror.errorMessage}</p></div>
+            [/#if]
+                
+                
+                <div class="error isHidden"> 
+                	<p> You have attempted to add more than the allowed number of suggestions per month!
+	                    <br />There is a total of three allowed suggestions per month.</div>
+	                </p>
                 <div class="error isHidden">You have attempted to add a suggestion that already exists!</div>
                 <div class="error isHidden">You have not completed information requested.</div>
             </div>
