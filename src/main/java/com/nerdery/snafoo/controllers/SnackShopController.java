@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
@@ -25,11 +26,6 @@ import com.nerdery.snafoo.model.view.SnackViewModel;
  */
 @Controller
 public class SnackShopController extends AbstractSnackShopController {
-
-	// This is my faked data storage for voted snacks.
-	// This really should persist to a DB or web service.
-	// private Map<String, SnackViewModel> voted = new HashMap<String,
-	// SnackViewModel>();
 
 	/*
 	 * @RequestMapping("/errorTest") public void renderErrorPage() { throw new
@@ -99,7 +95,6 @@ public class SnackShopController extends AbstractSnackShopController {
 				}
 			}
 		}
-		// return "redirect:/";
 		return safeRedirect("/");
 	}
 
@@ -109,4 +104,10 @@ public class SnackShopController extends AbstractSnackShopController {
 		rv.setContextRelative(true);
 		return rv;
 	}
+	 @RequestMapping(value="votetest", method = RequestMethod.POST)
+	  public @ResponseBody Person post( @RequestBody final  Person person) {    
+	 
+	      System.out.println(person.getId() + " " + person.getName());
+	      return person;
+	  }
 }

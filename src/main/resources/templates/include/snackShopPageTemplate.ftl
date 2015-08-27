@@ -33,7 +33,7 @@
     <script>
     // Forcing a post request with the choosen name of the snack.
     // Not sure how to make this more elegant with html form tag.
-    // This is used by the onClick in the voting section.
+    // This is used by the onClick on the buttons in the voting section.
     function snackVote(snack) {
 		var postData = "name=" + encodeURIComponent(snack);
 		xmlhttp=new XMLHttpRequest()
@@ -70,7 +70,7 @@
 	        return ret;
 	    }
 	    return false
-}
+i	}
 
 	function eraseCookie(name) {
 	    createCookie(name,"",-1);
@@ -94,29 +94,63 @@
      	createCookie("voteCount", value, 30);
 	}
     </script>
-    
-</head>
-<body class="no-js">
+      <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" >
 
-    <div class="masthead" role="banner">
-        <div class="masthead-hd">
-            <h1 class="hdg hdg_1 mix-hdg_extraBold"><a href="/">SnaFoo</a>
-            </h1>
-            <p class="masthead-hd-sub">Nerdery Snack Food Ordering System</p>
-        </div>
-        <div class="masthead-nav" role="navigation">
-            <ul>
-                <li><a href="/">Voting</a>
-                </li>
-                <li><a href="/suggestions">Suggestions</a>
-                </li>
-                <li><a href="/shoppinglist">Shopping List</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-    [#nested]
-</body>
+//$(document).ready(function(){
+  //sendAjax();
+//});
+ 
+function sendAjax(id) {
+ 
+ var id0 = id;
+ var id1 = JSON.stringify(id);
+ var id2 = JSON.stringify(id).replace(/\"/g,'&quot;');
+ var id3 = id.replace(/\"/g, "")
+var id4 = id.replace("\"", "\\\"");
+var id5 = eval(id);
+ 
+ 
+$.ajax({ 
+    url: "/votetest", 
+    type: 'POST', 
+    dataType: 'json', 
+    data: "{\"name\":\"hmkcode\",\"id\":\"id5\"}", 
+    contentType: 'application/json',
+    mimeType: 'application/json',
+    success: function(data) { 
+        alert(data.id + " " + data.name);
+        var td = document.getElementById("count_"+id);
+        var btn = document.getElementById(id);
+        var foo = 1;
+    },
+    error:function(data,status,er) { 
+        alert("error: "+data+" status: "+status+" er:"+er);
+    }
+});
+}
+</script>
+</head>
+	<body class="no-js">
+	    <div class="masthead" role="banner">
+	        <div class="masthead-hd">
+	            <h1 class="hdg hdg_1 mix-hdg_extraBold"><a href="/">SnaFoo</a>
+	            </h1>
+	            <p class="masthead-hd-sub">Nerdery Snack Food Ordering System</p>
+	        </div>
+	        <div class="masthead-nav" role="navigation">
+	            <ul>
+	                <li><a href="/">Voting</a>
+	                </li>
+	                <li><a href="/suggestions">Suggestions</a>
+	                </li>
+	                <li><a href="/shoppinglist">Shopping List</a>
+	                </li>
+	            </ul>
+	        </div>
+	    </div>
+	    [#nested]
+	</body>
 </html>
 [/#macro]
 [/#escape]

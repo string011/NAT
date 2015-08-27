@@ -70,12 +70,13 @@
                             	[#if snack.optional]
 		                            <tr>
 		                                <td>${snack.name}</td>
-		                                <td>${snack.voteCount}</td>
+		                                <td id="count_${snack.id?c}">${snack.voteCount}</td>
 		                                <td>
 		                                [#if snack.voteCount != 0]
 		                                    <button class="btn btn_clear"><i class="icon-check icon-check_voted"></i>
 	                                    [#else]
-	                                        <button id="${snack.name}" class="btn btn_clear" onclick="snackVote(id)"><i class="icon-check icon-check_noVote"></i>
+	                                        <button id="${snack.id?c}" class="btn btn_clear" onclick="sendAjax(id)"><i class="icon-check icon-check_noVote"></i>
+	                                        
                                         [/#if]
 		                                </td>
 	                                    <td>${snack.lastPurchaseDate}</td>
