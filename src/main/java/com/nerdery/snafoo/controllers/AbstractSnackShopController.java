@@ -60,6 +60,24 @@ public class AbstractSnackShopController implements Logging{
 	}
 	
 	/**
+	 * Fetch a SnackJPAModel from the local db using the given id. 
+	 * This is sub-optimal in that it really should be a query in the repo itself, 
+	 * and not just a linear search.
+	 * @param name
+	 * @return the snack instance if found.
+	 * @throws SnackNotFoundException
+	 */
+	public SnackJPAModel findSnackById(Long id) throws SnackNotFoundException {
+		Iterable<SnackJPAModel> snacks = snackRepository.findAll();
+		for (SnackJPAModel s : snacks) {
+			if (s.getId().equals(id)) {
+				return s;
+			}
+		}
+		throw new SnackNotFoundException(String.valueOf(id));
+	}
+	
+	/**
 	 * Save a SnackJPAModel to the local DB.
 	 * @param snack
 	 */

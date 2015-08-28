@@ -61,7 +61,7 @@ public class SnackShopController extends AbstractSnackShopController {
 	 * @param postPayload
 	 * @return the redirect location;
 	 */
-	@RequestMapping(value = "/voted", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
+	@RequestMapping(value = "/votedOld", method = RequestMethod.POST, consumes = "application/x-www-form-urlencoded")
 	public RedirectView handleSnackVote(@RequestBody String postPayload) {
 		String[] kv = postPayload.split("=");
 		@SuppressWarnings("unused")
@@ -104,10 +104,33 @@ public class SnackShopController extends AbstractSnackShopController {
 		rv.setContextRelative(true);
 		return rv;
 	}
-	 @RequestMapping(value="votetest", method = RequestMethod.POST)
-	  public @ResponseBody Person post( @RequestBody final  Person person) {    
-	 
-	      System.out.println(person.getId() + " " + person.getName());
-	      return person;
-	  }
+
+	@RequestMapping(value = "/voted", method = RequestMethod.POST)
+	public @ResponseBody SnackViewModelVotingData post(@RequestBody final SnackViewModelVotingData voteCount) {
+		List<SnackPageModel> domainPage = getRESTDomainPage();
+		SnackShopViewModel snackShopInfo = convert(domainPage);
+		SnackJPAModel snack = null;
+		for (SnackViewModel sm : snackShopInfo.getSnacks()) {
+			if (voteCount.getId().equals(String.valueOf(sm.getId()))) {
+				if (sm.isOptional() && !sm.isPurchased()) {
+					sm.incrementVoteCount();
+					try {
+						snack = findSnackById(sm.getId());
+						snack.incrementVoteCount();
+						save(snack);
+					} catch (SnackNotFoundException e) {
+						getLogger().info("snack not found creating new DB entry: " + sm.getName());
+						snack = new SnackJPAModel();
+						snack.setName(sm.getName());
+						snack.incrementVoteCount();
+						snack.setId(sm.getId());
+						snack.setLocation(sm.getPurchaseLocations());
+						save(snack);
+					}
+				}
+			}
+		}
+		voteCount.setVoteCount(String.valueOf(snack.getVoteCount()));
+		return voteCount;
+	}
 }

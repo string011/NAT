@@ -103,26 +103,29 @@ i	}
  
 function sendAjax(id) {
  
- var id0 = id;
- var id1 = JSON.stringify(id);
- var id2 = JSON.stringify(id).replace(/\"/g,'&quot;');
- var id3 = id.replace(/\"/g, "")
-var id4 = id.replace("\"", "\\\"");
-var id5 = eval(id);
+var id0 = eval(id);
+var id1 = JSON.stringify(eval(id));
  
- 
+     var obj = {"name":"snackName","id":id1};
+     var json = JSON.stringify(obj);
+     console.log(obj)
+     console.log(json);
 $.ajax({ 
-    url: "/votetest", 
+    url: "/voted", 
     type: 'POST', 
     dataType: 'json', 
-    data: "{\"name\":\"hmkcode\",\"id\":\"id5\"}", 
+    // data: "{\"name\":\"snackName\",\"id\":id1}", 
+    data: json,
     contentType: 'application/json',
     mimeType: 'application/json',
     success: function(data) { 
-        alert(data.id + " " + data.name);
-        var td = document.getElementById("count_"+id);
+    	var cnt = parseInt(data.voteCount);
+        alert(data.id + " " + data.name + " " + cnt);
+        var td = document.getElementById("count_"+id).innerText=data.voteCount;
         var btn = document.getElementById(id);
-        var foo = 1;
+        if (cnt > 0){
+           btn.children[0].className="icon-check icon-check_voted";
+        }
     },
     error:function(data,status,er) { 
         alert("error: "+data+" status: "+status+" er:"+er);
