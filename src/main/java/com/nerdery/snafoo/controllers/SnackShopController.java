@@ -2,7 +2,6 @@ package com.nerdery.snafoo.controllers;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
-import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
 import com.nerdery.snafoo.model.view.SnackShopViewModel;
 import com.nerdery.snafoo.model.view.SnackViewModel;
 
@@ -34,15 +32,14 @@ public class SnackShopController extends AbstractSnackShopController {
 
 	@RequestMapping("/")
 	public String renderPage(Model model) {
-		List<SnackPageModel> domainPage = getRESTDomainPage();
-		SnackShopViewModel snackShopInfo = convert(domainPage);
+		SnackShopViewModel snackShopInfo = getSnackShopViewModel();
 		for (SnackViewModel sm : snackShopInfo.getSnacks()) {
 			SnackJPAModel snack = null;
 			try {
 				snack = findSnackByName(sm.getName());
 			} catch (SnackNotFoundException e) {
 				if (sm.isOptional()) {
-					snack = createSnack(sm.getName());
+					snack = createSnack(sm.getName(), sm.getId());
 				}
 			}
 			if (snack != null) {
@@ -73,8 +70,7 @@ public class SnackShopController extends AbstractSnackShopController {
 			getLogger().error("", e1);
 		}
 
-		List<SnackPageModel> domainPage = getRESTDomainPage();
-		SnackShopViewModel snackShopInfo = convert(domainPage);
+		SnackShopViewModel snackShopInfo = getSnackShopViewModel();
 		for (SnackViewModel sm : snackShopInfo.getSnacks()) {
 			if (value.equals(sm.getName())) {
 				if (sm.isOptional() && !sm.isPurchased()) {
@@ -107,15 +103,14 @@ public class SnackShopController extends AbstractSnackShopController {
 
 	@RequestMapping(value = "/voted", method = RequestMethod.POST)
 	public @ResponseBody SnackViewModelVotingData post(@RequestBody final SnackViewModelVotingData voteCount) {
-		List<SnackPageModel> domainPage = getRESTDomainPage();
-		SnackShopViewModel snackShopInfo = convert(domainPage);
+		SnackShopViewModel snackShopInfo = getSnackShopViewModel();
 		SnackJPAModel snack = null;
 		for (SnackViewModel sm : snackShopInfo.getSnacks()) {
 			if (voteCount.getId().equals(String.valueOf(sm.getId()))) {
 				if (sm.isOptional() && !sm.isPurchased()) {
 					sm.incrementVoteCount();
 					try {
-						snack = findSnackById(sm.getId());
+						snack = findSnackByRemoteId(sm.getId());
 						snack.incrementVoteCount();
 						save(snack);
 					} catch (SnackNotFoundException e) {

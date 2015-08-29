@@ -31,6 +31,7 @@
    <link href="[@spring.url '/assets/styles/modern.css'/]" rel="stylesheet" type="text/css" media="screen"/>
     
     <script>
+    // XXX should really put this in its own .js file.
     // Forcing a post request with the choosen name of the snack.
     // Not sure how to make this more elegant with html form tag.
     // This is used by the onClick on the buttons in the voting section.
@@ -70,7 +71,7 @@
 	        return ret;
 	    }
 	    return false
-i	}
+	}
 
 	function eraseCookie(name) {
 	    createCookie(name,"",-1);
@@ -97,40 +98,30 @@ i	}
       <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
 <script type="text/javascript" >
 
-//$(document).ready(function(){
-  //sendAjax();
-//});
- 
 function sendAjax(id) {
- 
-var id0 = eval(id);
-var id1 = JSON.stringify(eval(id));
- 
-     var obj = {"name":"snackName","id":id1};
+     var obj = {"name":"snackName","id":id};
      var json = JSON.stringify(obj);
      console.log(obj)
      console.log(json);
-$.ajax({ 
-    url: "/voted", 
-    type: 'POST', 
-    dataType: 'json', 
-    // data: "{\"name\":\"snackName\",\"id\":id1}", 
-    data: json,
-    contentType: 'application/json',
-    mimeType: 'application/json',
-    success: function(data) { 
-    	var cnt = parseInt(data.voteCount);
-        alert(data.id + " " + data.name + " " + cnt);
-        var td = document.getElementById("count_"+id).innerText=data.voteCount;
-        var btn = document.getElementById(id);
-        if (cnt > 0){
-           btn.children[0].className="icon-check icon-check_voted";
-        }
-    },
-    error:function(data,status,er) { 
-        alert("error: "+data+" status: "+status+" er:"+er);
-    }
-});
+	$.ajax({ 
+	    url: "/voted", 
+	    type: 'POST', 
+	    dataType: 'json', 
+	    data: json,
+	    contentType: 'application/json',
+	    mimeType: 'application/json',
+	    success: function(data) { 
+	    	var cnt = parseInt(data.voteCount);
+	        var td = document.getElementById("count_"+id).innerText=data.voteCount;
+	        var btn = document.getElementById(id);
+	        if (cnt > 0){
+	           btn.children[0].className="icon-check icon-check_voted";
+	        }
+	    },
+	    error:function(data,status,er) { 
+	        alert("error: "+data+" status: "+status+" er:"+er);
+	    }
+	});
 }
 </script>
 </head>

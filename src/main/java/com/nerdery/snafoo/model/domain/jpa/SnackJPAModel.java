@@ -18,6 +18,9 @@ public class SnackJPAModel implements Serializable {
 	@Id
 	@GeneratedValue
 	private Long id;
+	
+	@Column(nullable = false)
+	private Long remoteId;
 
 	@Column(nullable = false)
 	private String name;
@@ -128,5 +131,13 @@ public class SnackJPAModel implements Serializable {
 
 	public void incrementVoteCount() {
 		++voteCount;
+	}
+
+	public Long getRemoteId() {
+		return remoteId;
+	}
+
+	public void setRemoteId(Long remoteId) {
+		this.remoteId = remoteId;
 	}
 }

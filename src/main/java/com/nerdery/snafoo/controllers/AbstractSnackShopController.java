@@ -67,10 +67,10 @@ public class AbstractSnackShopController implements Logging{
 	 * @return the snack instance if found.
 	 * @throws SnackNotFoundException
 	 */
-	public SnackJPAModel findSnackById(Long id) throws SnackNotFoundException {
+	public SnackJPAModel findSnackByRemoteId(Long id) throws SnackNotFoundException {
 		Iterable<SnackJPAModel> snacks = snackRepository.findAll();
 		for (SnackJPAModel s : snacks) {
-			if (s.getId().equals(id)) {
+			if (s.getRemoteId().equals(id)) {
 				return s;
 			}
 		}
@@ -88,12 +88,14 @@ public class AbstractSnackShopController implements Logging{
 	/**
 	 * Create a new SnackJPAModel instance and store in the local DB.
 	 * @param name
+	 * @param remoteId - the ID of the corresponding object in the remote DB.
 	 * @return the new snack.
 	 */
-	protected SnackJPAModel createSnack(String name) {
+	protected SnackJPAModel createSnack(String name, Long remoteId) {
 		getLogger().debug("Creating new snack in the local DB");
 		SnackJPAModel snack = new SnackJPAModel(name);
 		snack.setSuggestionDate(new Date());
+		snack.setRemoteId(remoteId);
 		return snackRepository.save(snack);
 	}
 
@@ -133,6 +135,12 @@ public class AbstractSnackShopController implements Logging{
 	@Inject
 	public void setSnackRepository(SnackRepository snackRepository) {
 		this.snackRepository = snackRepository;
+	}
+
+	protected SnackShopViewModel getSnackShopViewModel() {
+		List<SnackPageModel> domainPage = getRESTDomainPage();
+		SnackShopViewModel snackShopInfo = convert(domainPage);
+		return snackShopInfo;
 	}
 
 }

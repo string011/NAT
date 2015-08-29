@@ -68,6 +68,7 @@ public class SnackFoodApplication implements EmbeddedServletContainerCustomizer,
         Assert.notNull(snackShopRepository, "Failed to seed test database, due to missing snackShop object.");
         SnackRepository  snackRepository = (SnackRepository) context.getBeanFactory().getBean("snackJpaRepository");
         Assert.notNull(snackRepository, "Failed to seed test database, due to missing repository object.");
+        /*
         for (int i = 1; i < 4; i++) {
             snackShopRepository.save(new SnackShopJPAModel("SnackShopJPAModel " + i, i * 100, i * 2));
         }
@@ -78,6 +79,7 @@ public class SnackFoodApplication implements EmbeddedServletContainerCustomizer,
         		LoggerFactory.getLogger(SnackFoodApplication.class).debug(snack.getName());
         	}
 		}
+		*/
     }
 
     public static void main(String[] args) {

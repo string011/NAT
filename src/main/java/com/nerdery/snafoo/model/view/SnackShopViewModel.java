@@ -27,4 +27,25 @@ public class SnackShopViewModel {
 	public void setSnacks(List<SnackViewModel> snacks) {
 		this.snacks = snacks;
 	}
+	
+	public List<SnackViewModel> getOptionalSnacks(){
+		List<SnackViewModel> l = new ArrayList<SnackViewModel>();
+		for (SnackViewModel svm : getSnacks()){
+			if (svm.isOptional()){
+				l.add(svm);
+			}
+		}
+		return l;
+	}
+	
+	public List<SnackViewModel> getNonOptionalSnacks(){
+		List<SnackViewModel> l = new ArrayList<SnackViewModel>();
+		for (SnackViewModel svm : getSnacks()){
+			if (!svm.isOptional()){
+				l.add(svm);
+			}
+		}
+		return l;
+	}
+	
 }

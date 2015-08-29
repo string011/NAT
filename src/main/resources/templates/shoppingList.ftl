@@ -5,9 +5,6 @@
 [#escape x as x?html]
     [@page.pageTemplate "Snack Shop Page"]
     <div>
-    <h1>
-    Welcome to the snack shop.
-    </h1>
     <div class="wrapper">
         <div class="content" role="main">
             <div class="shelf shelf_5">
@@ -22,21 +19,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Donuts</td>
-                            <td>Pies &amp; Cakes Bakery</td>
-                        </tr>
-                        <tr>
-                            <td>Spam</td>
-                            <td>Cub</td>
-                        </tr>
-                        <tr>
-                            <td>Pistachios</td>
-                            <td>Cub</td>
-                        </tr>
-                        <tr>
-                            <td>Buckets of M&amp;M's</td>
-                            <td>Cub</td>
+                        [#list snackShopInfo.snacks as snack ]
+	                        <tr>
+				                <td> <p> ${snack.name} </p> </td>
+				                <td> <p> ${snack.purchaseLocations} </p> </td>
+	                        </tr>
+			            [/#list]
                         </tr>
                     </tbody>
                 </table>

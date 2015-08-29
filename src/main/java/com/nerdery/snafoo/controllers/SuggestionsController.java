@@ -51,15 +51,17 @@ public class SuggestionsController extends AbstractSnackShopController {
 			// post the suggestion to the REST endpoint, and to the local JPA repo.
 			error = postSuggestionToWebService(sug);
 			// find the matching snack from local DB and create a new instance if necessary.
+			/*
 			if (error == null) {
 				try {
 					SnackJPAModel snack = findSnackByName(sug.getName());
 					
 				} catch (SnackNotFoundException e) {
 					// This is here to handle snacks that are 
-					createSnack(sug.getName());
+					// createSnack(sug.getName());
 				}
 			}
+			*/
 		} else {
 			error = "Name and location are required";
 		}
