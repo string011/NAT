@@ -2,6 +2,7 @@ package com.nerdery.snafoo.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NavigableSet;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -40,15 +41,15 @@ public class ShoppingListController extends AbstractSnackShopController{
 		List<SnackViewModel> nonOptional = snackShopInfo.getNonOptionalSnacks();
 		nonOptional = new ArrayList<SnackViewModel>(sortSnacks(nonOptional));
 		List<SnackViewModel> optional = snackShopInfo.getOptionalSnacks();
-		optional = new ArrayList<SnackViewModel>(sortSnacks(optional));
+		optional = new ArrayList<SnackViewModel>(sortSnacks(optional).descendingSet());
 		nonOptional.addAll(optional);
 		snackShopInfo.setSnacks(nonOptional);
 		model.addAttribute("snackShopInfo", snackShopInfo);
         return "shoppingList";
     }
     
-    private SortedSet<SnackViewModel> sortSnacks(List<SnackViewModel> snacks){
-    	SortedSet<SnackViewModel> ss = new TreeSet<SnackViewModel>(new ByVoteCountComparator<SnackViewModel>());
+    private NavigableSet<SnackViewModel> sortSnacks(List<SnackViewModel> snacks){
+    	NavigableSet<SnackViewModel> ss = new TreeSet<SnackViewModel>(new ByVoteCountComparator<SnackViewModel>());
     	ss.addAll(snacks);
     	return ss;
     }
