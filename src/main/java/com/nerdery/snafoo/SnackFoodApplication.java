@@ -18,9 +18,9 @@ import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.util.Assert;
 
 import com.nerdery.snafoo.common.Logging;
-import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
+import com.nerdery.snafoo.model.domain.jpa.Todo;
 import com.nerdery.snafoo.model.domain.jpa.SnackShopJPAModel;
-import com.nerdery.snafoo.repository.SnackRepository;
+import com.nerdery.snafoo.repository.TodoRepository;
 import com.nerdery.snafoo.repository.SnackShopRepository;
 
 /**
@@ -66,7 +66,7 @@ public class SnackFoodApplication implements EmbeddedServletContainerCustomizer,
     private static void seedDatabase(ConfigurableApplicationContext context) {
         SnackShopRepository snackShopRepository = (SnackShopRepository) context.getBeanFactory().getBean("snackShopJpaRepository");
         Assert.notNull(snackShopRepository, "Failed to seed test database, due to missing snackShop object.");
-        SnackRepository  snackRepository = (SnackRepository) context.getBeanFactory().getBean("snackJpaRepository");
+        TodoRepository  snackRepository = (TodoRepository) context.getBeanFactory().getBean("snackJpaRepository");
         Assert.notNull(snackRepository, "Failed to seed test database, due to missing repository object.");
         /*
         for (int i = 1; i < 4; i++) {

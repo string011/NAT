@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
+import com.nerdery.snafoo.model.domain.jpa.Todo;
 import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
 import com.nerdery.snafoo.model.view.ErrorModel;
 import com.nerdery.snafoo.model.view.SnackViewModel;
@@ -83,7 +83,7 @@ public class SuggestionsController extends AbstractSnackShopController {
 	 * @return an error message or null.
 	 */
 	private String postSuggestionToWebService(SuggestionViewModel sug) {
-		SnackJPAModel snack = new SnackJPAModel();
+		Todo snack = new Todo();
 		snack.setName(sug.getName());
 		snack.setLocation(sug.getLocation());
 		try {

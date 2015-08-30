@@ -12,10 +12,10 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
 
 import com.nerdery.snafoo.common.Logging;
-import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
+import com.nerdery.snafoo.model.domain.jpa.Todo;
 import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
 import com.nerdery.snafoo.model.view.SnackShopViewModel;
-import com.nerdery.snafoo.repository.SnackRepository;
+import com.nerdery.snafoo.repository.TodoRepository;
 import com.nerdery.snafoo.repository.SnackShopRepository;
 import com.nerdery.snafoo.services.SnackShopPageService;
 
@@ -29,7 +29,7 @@ public class AbstractSnackShopController implements Logging{
 	protected ConversionService converterService;
 	protected SnackShopPageService snackShopPageService;
 	protected SnackShopRepository snackShopRepository;
-	protected SnackRepository snackRepository;
+	protected TodoRepository snackRepository;
 	
 	protected SnackShopViewModel convert(List<SnackPageModel> domainPage) {
 		SnackShopViewModel snackShopInfo = converterService.convert(domainPage, SnackShopViewModel.class);
@@ -49,9 +49,9 @@ public class AbstractSnackShopController implements Logging{
 	 * @return the snack instance if found.
 	 * @throws SnackNotFoundException
 	 */
-	public SnackJPAModel findSnackByName(String name) throws SnackNotFoundException {
-		Iterable<SnackJPAModel> snacks = snackRepository.findAll();
-		for (SnackJPAModel s : snacks) {
+	public Todo findSnackByName(String name) throws SnackNotFoundException {
+		Iterable<Todo> snacks = snackRepository.findAll();
+		for (Todo s : snacks) {
 			if (s.getName().equals(name)) {
 				return s;
 			}
@@ -67,9 +67,9 @@ public class AbstractSnackShopController implements Logging{
 	 * @return the snack instance if found.
 	 * @throws SnackNotFoundException
 	 */
-	public SnackJPAModel findSnackByRemoteId(Long id) throws SnackNotFoundException {
-		Iterable<SnackJPAModel> snacks = snackRepository.findAll();
-		for (SnackJPAModel s : snacks) {
+	public Todo findSnackByRemoteId(Long id) throws SnackNotFoundException {
+		Iterable<Todo> snacks = snackRepository.findAll();
+		for (Todo s : snacks) {
 			if (s.getRemoteId().equals(id)) {
 				return s;
 			}
@@ -81,7 +81,7 @@ public class AbstractSnackShopController implements Logging{
 	 * Save a SnackJPAModel to the local DB.
 	 * @param snack
 	 */
-	public SnackJPAModel save(SnackJPAModel snack){
+	public Todo save(Todo snack){
 		return snackRepository.save(snack);
 	}
 
@@ -91,9 +91,9 @@ public class AbstractSnackShopController implements Logging{
 	 * @param remoteId - the ID of the corresponding object in the remote DB.
 	 * @return the new snack.
 	 */
-	protected SnackJPAModel createSnack(String name, Long remoteId) {
+	protected Todo createSnack(String name, Long remoteId) {
 		getLogger().debug("Creating new snack in the local DB");
-		SnackJPAModel snack = new SnackJPAModel(name);
+		Todo snack = new Todo(name);
 		snack.setSuggestionDate(new Date());
 		snack.setRemoteId(remoteId);
 		return snackRepository.save(snack);
@@ -128,12 +128,12 @@ public class AbstractSnackShopController implements Logging{
 	}
 
 
-	public SnackRepository getSnackRepository() {
+	public TodoRepository getSnackRepository() {
 		return snackRepository;
 	}
 
 	@Inject
-	public void setSnackRepository(SnackRepository snackRepository) {
+	public void setSnackRepository(TodoRepository snackRepository) {
 		this.snackRepository = snackRepository;
 	}
 

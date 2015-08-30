@@ -18,7 +18,7 @@ import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 import com.nerdery.snafoo.common.Logging;
-import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
+import com.nerdery.snafoo.model.domain.jpa.Todo;
 import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
 import com.nerdery.snafoo.model.domain.rest.SuggestionRESTModel;
 import com.nerdery.snafoo.repository.SnackShopPageRepository;
@@ -48,7 +48,7 @@ public class SnackShopRestPageRepository implements SnackShopPageRepository, Log
 	 * Attempt to post a snack suggestion to the web service.
 	 */
 	@Override
-	public SnackJPAModel addSuggestion(SnackJPAModel snack) throws WebServicePostException {
+	public Todo addSuggestion(Todo snack) throws WebServicePostException {
 		URI url;
 		try {
 			RestTemplate rt = new RestTemplate();
