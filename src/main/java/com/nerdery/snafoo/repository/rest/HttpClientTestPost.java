@@ -12,7 +12,7 @@ import com.nerdery.snafoo.model.domain.rest.SuggestionRESTModel;
 
 public class HttpClientTestPost {
 
-	public static void main(String[] args) {
+	public static void mainFoo(String[] args) {
 		URI url;
 		try {
 			// url = new
