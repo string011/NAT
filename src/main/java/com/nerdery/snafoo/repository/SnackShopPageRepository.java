@@ -2,7 +2,7 @@ package com.nerdery.snafoo.repository;
 
 import java.util.List;
 
-import com.nerdery.snafoo.model.domain.jpa.Todo;
+import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
 import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
 import com.nerdery.snafoo.services.WebServicePostException;
 
@@ -11,5 +11,5 @@ import com.nerdery.snafoo.services.WebServicePostException;
  */
 public interface SnackShopPageRepository {
     List<SnackPageModel> getSnackShopHomePage();
-	Todo addSuggestion(Todo snack) throws WebServicePostException;
+	SnackJPAModel addSuggestion(SnackJPAModel snack) throws WebServicePostException;
 }

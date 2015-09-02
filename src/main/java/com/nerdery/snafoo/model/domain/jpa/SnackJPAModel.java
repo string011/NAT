@@ -13,7 +13,7 @@ import javax.persistence.ManyToOne;
  * Domain model object representing a SnackJPAModel.
  */
 @Entity
-public class Todo implements Serializable {
+public class SnackJPAModel implements Serializable {
 
 	private static final long serialVersionUID = -3231340038644854816L;
 
@@ -51,7 +51,7 @@ public class Todo implements Serializable {
 	/**
 	 * Default no-arg constructor.
 	 */
-	public Todo() {
+	public SnackJPAModel() {
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class Todo implements Serializable {
 	 * @param name - The name of the snack.
 	 * @param alwaysPurchased
 	 */
-	public Todo(String name, boolean alwaysPurchased) {
+	public SnackJPAModel(String name, boolean alwaysPurchased) {
 		this.name = name;
 		this.alwaysPurchased = alwaysPurchased;
 	}
@@ -68,7 +68,7 @@ public class Todo implements Serializable {
 	 * Constructor for a new SnackJPAModel. Defaults to 'optionally purchased'.
 	 * @param name - The name of the snack.
 	 */
-	public Todo(String name) {
+	public SnackJPAModel(String name) {
 		this(name, false);
 	}
 

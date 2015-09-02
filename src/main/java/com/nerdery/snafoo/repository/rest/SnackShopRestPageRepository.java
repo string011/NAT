@@ -18,7 +18,7 @@ import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 import com.nerdery.snafoo.common.Logging;
-import com.nerdery.snafoo.model.domain.jpa.Todo;
+import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
 import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
 import com.nerdery.snafoo.model.domain.rest.SuggestionRESTModel;
 import com.nerdery.snafoo.repository.SnackShopPageRepository;
@@ -48,15 +48,15 @@ public class SnackShopRestPageRepository implements SnackShopPageRepository, Log
 	 * Attempt to post a snack suggestion to the web service.
 	 */
 	@Override
-	public Todo addSuggestion(Todo snack) throws WebServicePostException {
+	public SnackJPAModel addSuggestion(SnackJPAModel snack) throws WebServicePostException {
 		URI url;
 		try {
 			RestTemplate rt = new RestTemplate();
 			rt.setErrorHandler(this);
 			url = new URI("https://api-snacks.nerderylabs.com/v1/snacks?ApiKey=0eaeec59-fa32-420c-9cc4-e6b96633e211");
 			SuggestionRESTModel spm = new SuggestionRESTModel();
-			// spm.setName(snack.getName());
-			// spm.setLocation(snack.getLocation());
+			spm.setName(snack.getName());
+			spm.setLocation(snack.getLocation());
 			ResponseEntity<SuggestionRESTModel> response = rt.postForEntity(url, spm, SuggestionRESTModel.class);
 			HttpStatus status = response.getStatusCode();
 			if (!status.is2xxSuccessful()) {

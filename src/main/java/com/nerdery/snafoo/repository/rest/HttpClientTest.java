@@ -9,7 +9,7 @@ import java.net.URL;
 
 public class HttpClientTest {
 
-	public static void mainFoo(String[] args) {
+	public static void main(String[] args) {
 		URL url;
 		try {
 			// url = new URL("https://api-snacks.nerderylabs.com/v1/snacks/?ApiKey=3db4ceed-81f4-47dc-b34a-31ba6a0aef88");

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.nerdery.snafoo.model.domain.jpa.Todo;
+import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
 import com.nerdery.snafoo.model.view.SnackShopViewModel;
 import com.nerdery.snafoo.model.view.SnackViewModel;
 
@@ -26,7 +26,7 @@ public class ShoppingListController extends AbstractSnackShopController {
 	public String renderPage(Model model) {
 		SnackShopViewModel snackShopInfo = getSnackShopViewModel();
 		for (SnackViewModel sm : snackShopInfo.getSnacks()) {
-			Todo snack = null;
+			SnackJPAModel snack = null;
 			try {
 				snack = findSnackByName(sm.getName());
 			} catch (SnackNotFoundException e) {

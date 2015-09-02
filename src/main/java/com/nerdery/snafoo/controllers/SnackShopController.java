@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.nerdery.snafoo.model.domain.jpa.Todo;
+import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
 import com.nerdery.snafoo.model.view.SnackShopViewModel;
 import com.nerdery.snafoo.model.view.SnackViewModel;
 
@@ -34,7 +34,7 @@ public class SnackShopController extends AbstractSnackShopController {
 	public String renderPage(Model model) {
 		SnackShopViewModel snackShopInfo = getSnackShopViewModel();
 		for (SnackViewModel sm : snackShopInfo.getSnacks()) {
-			Todo snack = null;
+			SnackJPAModel snack = null;
 			try {
 				snack = findSnackByName(sm.getName());
 			} catch (SnackNotFoundException e) {
@@ -61,7 +61,7 @@ public class SnackShopController extends AbstractSnackShopController {
 	@RequestMapping(value = "/voted", method = RequestMethod.POST)
 	public @ResponseBody SnackViewModelVotingData post(@RequestBody final SnackViewModelVotingData voteCount) {
 		SnackShopViewModel snackShopInfo = getSnackShopViewModel();
-		Todo snack = null;
+		SnackJPAModel snack = null;
 		for (SnackViewModel sm : snackShopInfo.getSnacks()) {
 			if (voteCount.getId().equals(String.valueOf(sm.getId()))) {
 				if (sm.isOptional() && !sm.isPurchased()) {
@@ -72,7 +72,7 @@ public class SnackShopController extends AbstractSnackShopController {
 						save(snack);
 					} catch (SnackNotFoundException e) {
 						getLogger().info("snack not found creating new DB entry: " + sm.getName());
-						snack = new Todo();
+						snack = new SnackJPAModel();
 						snack.setName(sm.getName());
 						snack.incrementVoteCount();
 						snack.setId(sm.getId());

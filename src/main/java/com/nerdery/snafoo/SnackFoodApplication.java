@@ -18,7 +18,7 @@ import org.springframework.core.convert.support.DefaultConversionService;
 import org.springframework.util.Assert;
 
 import com.nerdery.snafoo.common.Logging;
-import com.nerdery.snafoo.model.domain.jpa.Todo;
+import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
 import com.nerdery.snafoo.model.domain.jpa.SnackShopJPAModel;
 import com.nerdery.snafoo.repository.TodoRepository;
 import com.nerdery.snafoo.repository.SnackShopRepository;

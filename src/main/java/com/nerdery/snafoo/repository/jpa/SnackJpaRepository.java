@@ -3,7 +3,7 @@ package com.nerdery.snafoo.repository.jpa;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.nerdery.snafoo.model.domain.jpa.Todo;
+import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
 import com.nerdery.snafoo.repository.TodoRepository;
 
 /**
@@ -11,6 +11,6 @@ import com.nerdery.snafoo.repository.TodoRepository;
  * 
  */
 @Repository
-public interface SnackJpaRepository extends CrudRepository<Todo, Long>, TodoRepository {
+public interface SnackJpaRepository extends CrudRepository<SnackJPAModel, Long>, TodoRepository {
 
 }

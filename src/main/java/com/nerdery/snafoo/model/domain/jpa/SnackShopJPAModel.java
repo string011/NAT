@@ -36,7 +36,7 @@ public class SnackShopJPAModel implements Serializable {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
 	@JoinTable(name = "snack_shop_snack", joinColumns = { @JoinColumn(name = "shop_id") }, inverseJoinColumns = {
 			@JoinColumn(name = "snack_id") })
-	List<Todo> snacks = new ArrayList<Todo>();
+	List<SnackJPAModel> snacks = new ArrayList<SnackJPAModel>();
 
 	public SnackShopJPAModel() {
 	}
@@ -44,7 +44,7 @@ public class SnackShopJPAModel implements Serializable {
 	public SnackShopJPAModel(String name, int hours, int developers) {
 		this.name = name;
 		for (int idx = 0; idx < developers; ++idx) {
-			snacks.add(new Todo("SnackJPAModel" + String.valueOf(developers), false));
+			snacks.add(new SnackJPAModel("SnackJPAModel" + String.valueOf(developers), false));
 		}
 	}
 
@@ -60,11 +60,11 @@ public class SnackShopJPAModel implements Serializable {
 		this.name = name;
 	}
 
-	public List<Todo> getSnacks() {
+	public List<SnackJPAModel> getSnacks() {
 		return snacks;
 	}
 
-	public void add(Todo snack) {
+	public void add(SnackJPAModel snack) {
 		getSnacks().add(snack);
 	}
 }

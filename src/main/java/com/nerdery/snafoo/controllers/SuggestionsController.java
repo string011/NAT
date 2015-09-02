@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.nerdery.snafoo.model.domain.jpa.Todo;
+import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
 import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
 import com.nerdery.snafoo.model.view.ErrorModel;
 import com.nerdery.snafoo.model.view.SnackViewModel;
@@ -50,18 +50,6 @@ public class SuggestionsController extends AbstractSnackShopController {
 			sug.setLocation(suggestions.getLocation());
 			// post the suggestion to the REST endpoint, and to the local JPA repo.
 			error = postSuggestionToWebService(sug);
-			// find the matching snack from local DB and create a new instance if necessary.
-			/*
-			if (error == null) {
-				try {
-					SnackJPAModel snack = findSnackByName(sug.getName());
-					
-				} catch (SnackNotFoundException e) {
-					// This is here to handle snacks that are 
-					// createSnack(sug.getName());
-				}
-			}
-			*/
 		} else {
 			error = "Name and location are required";
 		}
@@ -83,13 +71,12 @@ public class SuggestionsController extends AbstractSnackShopController {
 	 * @return an error message or null.
 	 */
 	private String postSuggestionToWebService(SuggestionViewModel sug) {
-		Todo snack = new Todo();
+		SnackJPAModel snack = new SnackJPAModel();
 		snack.setName(sug.getName());
 		snack.setLocation(sug.getLocation());
 		try {
 			getSnackShopPageService().addSuggestion(snack);
 		} catch (WebServicePostException e) {
-			// XXX This is a hack just to test the flow of error handling.
 			if (e.getCode() == 409) {
 				return "This snack already exists";
 			}

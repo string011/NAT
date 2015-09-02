@@ -1,12 +1,12 @@
 package com.nerdery.snafoo.repository;
 
-import com.nerdery.snafoo.model.domain.jpa.Todo;
+import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
 
 /**
  * Base interface for Snacks
  */
 public interface TodoRepository {
-    Iterable<Todo> findAll();
-    Todo save(Todo snack);
-	Todo findSnackByName(String name);
+    Iterable<SnackJPAModel> findAll();
+    SnackJPAModel save(SnackJPAModel snack);
+	SnackJPAModel findSnackByName(String name);
 }

@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.convert.ConversionService;
 
 import com.nerdery.snafoo.common.Logging;
-import com.nerdery.snafoo.model.domain.jpa.Todo;
+import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
 import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
 import com.nerdery.snafoo.model.view.SnackShopViewModel;
 import com.nerdery.snafoo.repository.TodoRepository;
@@ -49,9 +49,9 @@ public class AbstractSnackShopController implements Logging{
 	 * @return the snack instance if found.
 	 * @throws SnackNotFoundException
 	 */
-	public Todo findSnackByName(String name) throws SnackNotFoundException {
-		Iterable<Todo> snacks = snackRepository.findAll();
-		for (Todo s : snacks) {
+	public SnackJPAModel findSnackByName(String name) throws SnackNotFoundException {
+		Iterable<SnackJPAModel> snacks = snackRepository.findAll();
+		for (SnackJPAModel s : snacks) {
 			if (s.getName().equals(name)) {
 				return s;
 			}
@@ -67,9 +67,9 @@ public class AbstractSnackShopController implements Logging{
 	 * @return the snack instance if found.
 	 * @throws SnackNotFoundException
 	 */
-	public Todo findSnackByRemoteId(Long id) throws SnackNotFoundException {
-		Iterable<Todo> snacks = snackRepository.findAll();
-		for (Todo s : snacks) {
+	public SnackJPAModel findSnackByRemoteId(Long id) throws SnackNotFoundException {
+		Iterable<SnackJPAModel> snacks = snackRepository.findAll();
+		for (SnackJPAModel s : snacks) {
 			if (s.getRemoteId().equals(id)) {
 				return s;
 			}
@@ -81,7 +81,7 @@ public class AbstractSnackShopController implements Logging{
 	 * Save a SnackJPAModel to the local DB.
 	 * @param snack
 	 */
-	public Todo save(Todo snack){
+	public SnackJPAModel save(SnackJPAModel snack){
 		return snackRepository.save(snack);
 	}
 
@@ -91,9 +91,9 @@ public class AbstractSnackShopController implements Logging{
 	 * @param remoteId - the ID of the corresponding object in the remote DB.
 	 * @return the new snack.
 	 */
-	protected Todo createSnack(String name, Long remoteId) {
+	protected SnackJPAModel createSnack(String name, Long remoteId) {
 		getLogger().debug("Creating new snack in the local DB");
-		Todo snack = new Todo(name);
+		SnackJPAModel snack = new SnackJPAModel(name);
 		snack.setSuggestionDate(new Date());
 		snack.setRemoteId(remoteId);
 		return snackRepository.save(snack);

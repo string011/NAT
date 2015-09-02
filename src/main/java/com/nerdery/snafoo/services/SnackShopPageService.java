@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.nerdery.snafoo.model.domain.jpa.Todo;
+import com.nerdery.snafoo.model.domain.jpa.SnackJPAModel;
 import com.nerdery.snafoo.model.domain.rest.SnackPageModel;
 import com.nerdery.snafoo.repository.SnackShopPageRepository;
 
@@ -22,7 +22,7 @@ public class SnackShopPageService {
         return snackShopPageRepository.getSnackShopHomePage();
     }
     
-    public Todo addSuggestion(Todo snack) throws WebServicePostException{
+    public SnackJPAModel addSuggestion(SnackJPAModel snack) throws WebServicePostException{
     	return snackShopPageRepository.addSuggestion(snack);
     }
 
