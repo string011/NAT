@@ -85,6 +85,7 @@
 	
 	function sendVote(id) {
         if (readOrCreateVoteCount() == 3){
+	        // XXX this should go into a nice error box. See: suggestions.ftl.
         	alert("You can only vote 3 times in a month");
         	return;
         }
@@ -106,6 +107,7 @@
 		        var td = document.getElementById("count_"+id).innerText=data.voteCount;
 		        var btn = document.getElementById(id);
 	            btn.children[0].className="icon-check icon-check_voted";
+	            btn.disabled = true;
 	            initializeVotesRemaining();
 		    },
 		    error:function(data,status,er) { 
